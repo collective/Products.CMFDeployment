@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      i18n:domain="plone">
+
+<body>
+
+<!-- THE PERSONAL BAR DEFINITION -->
+
+<div metal:define-macro="personal_bar"
+      tal:define="display_actions python:user_actions[:-1]+global_actions+user_actions[-1:];"
+      tal:omit-tag="">
+
+<h5 class="hiddenStructure" i18n:translate="heading_personal_tools">Personal tools</h5>
+
+<ul id="portal-personaltools">
+
+    <li class="portalNotLoggedIn">
+             &nbsp;
+    </li>
+
+</ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<h2> Mastering: User </h2>
+
+<p> The user chosen here is used *throughout* the deployment process,
+    so catalog searches for content will be implictly filtered by this
+    user's permissions/roles as will links/actions guarded by security
+    checks </p>
+
+
+<p> The UserId should correspond to a user id, and the userdb path
+    should correspond to the physical path of a user folder </p>
+    
+<b>Current User:</b> <dtml-var "_.getattr(this().site_user, 'userid', 'None')">
+  
+ <br><br>
+
+
+<form action="editUser" method="POST">
+
+User Id <input type="text" name="user" value=""> 
+
+ <br><br>
+
+UDB Path <input type="text" name="udb_path" value="">
+
+ <br><br>
+
+Enabled <select name="enable:int">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+
+ <input type="submit" value="change user">
+
+</form>
+
+
+<dtml-var manage_page_footer>

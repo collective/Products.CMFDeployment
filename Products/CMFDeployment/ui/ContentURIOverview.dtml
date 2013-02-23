@@ -1,0 +1,95 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<h2> Content URIs </h2>
+
+<p> Settings for URI replacement in rendered content </p>
+
+
+<form method="POST" action="editContentURI">
+
+<table>
+
+<tr>
+    <td>
+     <div class="form-label">
+      Target URL Prefix
+     </div>
+    </td>
+    <td>
+       <div class="form-element">
+        <input type="text" name="target_path" value="<dtml-var target_path>" size="60">
+       </div>
+    </td>
+</tr>
+
+<tr>
+    <td>
+     <div class="form-optional">
+     Vhost Path Fix (not needed for most)
+     </div>
+    </td>
+    <td>
+       <div class="form-element">
+           <input type="text" name="vhost_path" value="<dtml-var vhost_path>" size="60">
+     
+       </div>
+    </td>
+</tr>
+
+<tr>
+    <td>
+     <div class="form-label">
+     Linking Error URL
+     </div>
+    </td>
+    <td>
+     <div class="form-element">
+     <input class="form-element"
+            type="text" name="link_error_url" value="<dtml-var link_error_url>" size="60">
+     </div>
+    </td>
+</tr>
+
+
+<tr><td><div class="form-label">Use Relative Resolution</td>
+    <td><select name="relative_target_resolution:int">
+	<option <dtml-if "not _['relative_target_resolution']">selected</dtml-if> 
+	        value="0">No</option>
+        <option <dtml-if relative_target_resolution>selected</dtml-if> 
+	        value="1">Yes</option>
+	</select>
+    </td>
+</tr>
+
+<tr><td><div class="form-label">Enable Text Resolution (experimental
+    for javascript)</td>
+    <td><select name="enable_text_resolution:int">
+	<option <dtml-if "not _['enable_text_resolution']">selected</dtml-if> 
+	        value="0">No</option>
+        <option <dtml-if enable_text_resolution>selected</dtml-if> 
+	        value="1">Yes</option>
+	</select>
+    </td>
+</tr>
+
+
+<tr><td colspan="2">
+    <input type="submit" value="edit uri settings">
+    </td></tr>
+
+</table>
+
+<dtml-if external_resolver_path>
+<h3> External Resolver: </h3>
+<p><dtml-var external_resolver_path></p>
+</p>
+</dtml-if>
+
+</form>
+
+    
+
+
+<dtml-var manage_page_footer>

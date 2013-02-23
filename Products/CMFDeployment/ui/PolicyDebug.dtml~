@@ -1,0 +1,43 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<h2> Debug Deployment Policy </h2>
+
+<p> Allows for specification of individual objects to deploy </p>
+
+
+<form action="execute" method="POST">
+
+
+<input type="submit" value="Execute Policy">
+
+<b> Enter object paths, one per line to deploy </b>
+<text name="debug_deploy_paths"></text>
+</form>
+
+
+
+<dtml-let history="getDeploymentHistory()">
+<dtml-let last_time="history.getLastTime()">
+ <dtml-if last_time>
+ <p>
+  Last Deployment Time - <dtml-var last_time>   - 
+  <em>
+   <a href="<dtml-var "history.getLast().absolute_url()">">See Log</a></em>
+ </p>
+ </dtml-if>
+</dtml-let>
+</dtml-let>
+
+
+<p> Reset - You can also clear all non configuration persistent state from the
+policy. If your a configuring and executing a policy, its a good idea
+to do this after configuration. it will reset the incremental state. 
+<em> <a href="clearState">Clear State</a> </em>
+</p>
+
+
+<p>Download Policy - as <em><a href="export">XML</a></em></p>
+
+<dtml-var manage_page_footer>

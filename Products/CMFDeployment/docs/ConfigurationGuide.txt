@@ -1,0 +1,350 @@
+
+CMF Deployment
+
+  Focus
+
+   Configuring the deployment tool properly is a complex affair, that
+   this guide is meant to assist with. To aid in understanding of the 
+   configuration, a conceptual overview of the execution of a policy
+   is given before diving into the configuration itself.
+
+  Terminology
+
+   Mount Point
+
+  Components
+
+    Content Identification
+
+      All the content to be processed for deployment is gathered
+      by the content identifcation component. 
+
+    Content Organization
+
+      A bit of a misnomer presently, this component handle what the
+      file system  mount point and the cmf mount point are. In the
+      future this component will handle remapping of the structure
+      from the cmf mount point to the filesystem mount, and the
+      current behavior of mirroring the cmf structure will become just 
+      a default policy.
+
+    Skins/ Content Directory Views
+
+      Any cmf site has a certain amount of resources located in
+      the skins tool that need to be deployed along side content.
+      Examples include images, javascript, and css files. This
+      component handles merging in skins into the deployment.
+      Additionally since most skin resources are gotten via
+      acquisition and thus maybe referenced inconsistently this 
+      tool allows for a skin directory to be merged multiple times 
+      into a deployment.
+
+    Content Mastering/Templating
+
+      This component handles several things. It allows for
+      specification of a particular skin to be used during 
+      deployment. It allows for a particular user to be used
+      during deployment. Most importantly it provides the
+      mime mapping rules that give content objects the 
+      appropriate extensions and specifies the method
+      to be used while rendering content.
+
+    Content Deployment
+
+      This component handles the transfer of content from
+      the cms server filesystem to a target deployment server.
+      it does so using a pluggable deployment protocol.
+
+    Content URI Resolver
+
+      When content objects are rendered they contain references
+      to other content objects that have had extensions mapped
+      onto them for deployment (The motivation for this is 
+      that most static webservers use file extensions to
+      correctly determine mime types when serving content to
+      a client.) These intra content references need to be
+      repaired so links in the deployed content will function
+      properly. This component handles fixing up intra
+      content urls.
+
+    Deployment History
+
+      This component records logs and statistics from each
+      successful deployment.
+
+  Policy Execution
+
+    The Deployment tool supports multiple policies, each representing
+    a different policy of what content is deployed, how it should be
+    displayed, etc. Each policy can use one of a set of pluggable
+    strategies for their execution. What follows is a generic
+    examination of the policy execution that is applicable regardless
+    of the strategy chosen. Still this is *very* implementation specific
+    and subject to change, even so it is useful when considering the
+    configuration of a policy, which is not likely to change signifigantly.
+
+    First, the Organization component is initialized by mounting the
+    cmf using the cmf mount point. Mounting in this sense means that
+    the cmf structure is inspected starting at the mount point and 
+    recursing below it to get the folder structure. This inspection
+    is used to create an object tree of directories that is then
+    copied to the file system mount point, creating a directory 
+    structure that mirrors that found at the cmf mount point.
+
+    Next, the Mastering component makes the default skin the skin
+    specified as the deployment and changes users to the user
+    specificied as the deployment user (if any).
+
+    Next, the Identification component is used to find content that
+    should be deployed. Internally this uses a catalog query to find
+    all the available content, and then uses a series of filter 
+    expressions (TALES) and filter scripts (python scripts) to prune
+    the available content.
+
+    The content set is then checked against the Mastering component's
+    mime mappings. If an appriopriate mime mapping is not found
+    then the content is removed from the set of deployable content.
+    if an appropriate mime mapping is found, then the content is
+    added to the url resolver's database of content urls.
+
+    Skin directories specified in the Skin component are then
+    rendered, added to the resolver database, have their intra 
+    content-urls resolved, and then are stored on the file system. 
+    
+    The content set is iterated through again, for each content
+    object, the content is rendered, and then has its uris resolved,
+    iff the content is not binary or did not have an error during 
+    rendering. the rendered content is then stored on the filesystem
+    at the appropriate location.
+
+  Configuration
+
+   Navigating the Policy Menus
+
+    To aid in navigation of the nested menus, links to the next level
+    higher appear on the right side of the management tabs. 
+
+   Sorting Rules
+
+    A number of the configuration options for CMFDeployment
+    map a content object against a set of rules. In such cases
+    ordering is important. If you have complex sorting requirements
+    it is highly recommended that you install OrderedFolder along
+    side CMFDeployment. CMFDeployment will automatically use 
+    Ordered Folder in any rules container allowing for easy sorting.
+    Ordered Folder can be downloaded from
+
+    http://demo.iuveno-net.de/iuveno/Products/OrderedFolder
+
+   Identification
+
+     Source
+ 
+       Currently expressed as a non configurable catalog query.
+
+     Filter Expressions
+     
+       Creating a filter expression, involves writing a tales
+       expression. the expression context has available the 
+       following variables::
+
+          memento - a catalog brain, the memento will have attributes
+                    corresponding to the catalog schema. Additionally
+                    it has methods to get the path (getPath) of the
+                    content and the content object itself (getObject).
+                    Use of getObject should be limited if possible,
+                    as it will adversely affect memory growth.
+          
+          portal_url - the url of the portal object
+
+          portal - the portal object
+          
+          request - the request being used to deploy the object
+
+          nothing - python None value
+
+          modules - the standard TALES module importer
+         
+     Filter Scripts
+
+       Filter Scripts are python scripts, you need to hand
+       edit the parameter list to take one parameters, a memento
+       object, as described above.
+
+   Organization
+
+     FS Mount
+
+      The directory point on the filesystem at which the 
+      content should be merged. 
+
+     CMF Mount
+
+      The folder from which the cmf structure will be synced
+      to the filesystem. This implictly filters content
+      from 
+
+   Skins   
+
+     For adding a skin directories contents into the deployment
+     you need to specify::
+     
+        view path - the path relative to the skin tool that leads
+                    to the skin directory
+
+        source path - the path relative to the mount point that
+                    the content is referenced by
+
+        deployment path - the path the content should get deployed
+                    to relative the deployment root
+
+     source path could use some additional clarification. it
+     represents the path that skin resources are referenced from. take
+     an an image for example, folder.gif that is referenced inside
+     of image urls as::
+
+        <img src="/portal/folder.gif" />
+     
+     in this case if the mount point is the portal root, the
+     source path would be '/'.
+          
+     its perfectly valid to merge in the same skin directory more
+     than once.
+
+     so if the same folder.gif were references as::
+
+        <img src="/portal/portal_images/folder.gif" />
+
+     you could merge the same content directory again with a 
+     source_path of '/portal_images'.
+
+     XXX if a mount point is below the portal root, skin directory
+     XXX source path should be relative to the root. check this.
+
+   URIs
+
+     Configuration of the URL Resolver
+
+     Target URL Path
+
+       When deploying content, its not always the case that the
+       content will be deployed to the root of the static server.
+       Using the target URL Path, you can prefix urls with the
+       proper url path that the content will be deployed to.
+
+       for example if i'm deploying content to example.com/journal
+       i want to set the target url path to /journal 
+
+     Vhost Path Fix
+
+       This is a work around for broken proxy setups. Most if not 
+       all users will never need to use this. Symptons for which 
+       this is needed is when::
+
+            content_object.absolute_url(relative=1)
+
+       returns an incorrect url. Which is primarily caused
+       by improper setup of a zope proxy configuration (w/ apache
+       for example). In such cases vhost_path is used as a prefix 
+       when doing relative url calculations.
+
+   Templating
+
+     Skin
+     
+       This setting allows you to pick a particular skin to use
+       when rendering content for deployment. 
+
+     User
+
+       This setting allows you to pick a particular user that
+       will be used throughout the deployment process. Catalog
+       searches for content, and links/actions guarded by security
+       checks will be implicitly filtered out then based on
+       permissions/roles of this user::
+
+         UserId - should correspond to a user id
+         
+         UDB Path - should correspond to a path from the root
+                    of zope to an acl users object.
+
+     MimeMapping
+
+       The mime mapping is a used to give extensions to 
+       content objects. If a content object does not match
+       a mime type, it is not deployed.
+
+        Fields:: 
+
+         Condition Expression - A TALES expression used to decide
+         whether a particular object matches this mime mapping
+                  
+         Value Expression - A TALES expression used to determine the
+         filename of a content object on the filesystem.
+
+         View Method - a string, giving the name of a method
+         to call on object to render it. the default is fine
+         for most content objects.
+
+         Ghost - if you want to add a content object to the URL
+         database, but don't want it rendered or stored set ghost
+         to yes. The common case for this option, is a folder
+ 	 which has a separate content object set for its default
+	 view, ie an index_html content object. in that case setting
+	 the ghost attribute on the folder ensures that urls pointing
+	 to the folder/index_html *and* just the folder are resolved
+	 properly.
+       
+       The TALES expressions for MimeMappings have these Context
+       Values::
+
+         object - the content object
+
+         portal - the portal object
+
+         nothing - python None value
+
+         request - the REQUEST
+
+         modules - the standard TALES module importer
+
+   Strategies
+
+     Represent different ways of executing a policy, different
+     strategies should achieve the same results, but may have
+     different run time behavior. By default CMFDeployment ships
+     with two strategies::
+
+       Default - Deploys all content found.
+
+       Incremental - Only deploys content modified since the last
+       deployment
+     
+   Deployment
+
+     Targets
+
+       Each target represents a different server to transfer the 
+       content to.
+       
+     Protocols
+
+       A protocol is used to effect the content transfer
+       
+       rsync_ssh - is the only protocol currently shipping it requires
+       an ssh server on the target server and rsync.
+
+    
+     If you have no targets configured CMFDeployment will leave
+     the deployed content in place at the location specifed as 
+     the FS Mount Point mount for the Organization component.
+
+     XXX deployment to targets via CMFDeployment has not been well
+     tested.
+
+  Feedback
+
+   Any suggestions/feedback/criticism of this doc  are welcome
+   please send information to 
+   me:"mailto:k_vertigo@objectrealms.net?subject=CMFDeployment+Config"
+  

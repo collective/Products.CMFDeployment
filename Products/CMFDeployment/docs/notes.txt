@@ -1,0 +1,108 @@
+
+
+need to think more about skin inclusion.
+
+- is the deployment path, relative to the url root
+  or the fs deployment root.
+
+#################################
+Deployment from a Memory Perspective
+
+#################################
+Deployment from a Time Perspective
+
+Some crude time estimates, clearly show that
+the overwhelming majority of time is spent inside
+the rendering process. 
+
+still, its good to be aware of some other possible,
+places of linear time growth. the content filtering
+section . Note this is unlike the mime mapping section 
+which also uses filters, but uses a short circuit alg. 
+
+#################################
+Merging Skin Directories
+
+- notes in ContentDirectoryView.py
+
+#################################
+Todos
+
+- absolute urls with relative segements ... needed
+
+- need to add faq to mime map (ditto for other composite content)
+
+#################################
+Ghosts
+
+- added concepts of ghosts, deployable content
+  which is not rendered or stored on the fs,
+  but which is added to the uri db.
+
+- content that raises an exception in the
+  rendering phase, gets turned into a ghost,
+  currently.
+
+- ghosts were initially added to support folderish
+  content which wasn't deployed???
+
+#################################
+Incremental Infrastructure
+
+- adding persistent uri resolver
+
+- adding deployment history
+
+  - need to aggregate stats here for display latter.
+
+- i'm getting some problem resolving a particular item
+  Error Type: Undefined
+Error Value: queryCatalog not found in 'thetopic/queryCatalog', at line 95, column 3
+
+  seems to be coming from contact
+
+- need some sort of options ui
+
+  - still need policy on exceptions
+
+###############
+- memory stats
+
+massive commit, this gets us into good working order, for deployment.
+
+additionally its an initial landing point of the mass refactoring i
+started a few weeks ago at cs.
+
+the zmi screens still need work, as does component initiliazation, and
+reporting of stat collection.
+
+incremental deployment functionality, is tops on the todo list.
+
+doing multiple renderings per content type is going to require some sort
+additional refactoring.
+
+top priority on zmi is reducing its complexity, and getting it completely
+functional again, and integrating ordered folder, so that all the filterish
+things, can be explicitly ordered ttw.
+
+#############
+
+the key problems at the moment,
+
+  - MOSTLY FIXED uri translation and normalization is really bad.
+  
+    - still need to deal with css2 imports
+
+  - identification
+   
+    - everything is currently deriving from a catalog dump
+
+    - need to allow other sources, what basis?
+
+  - component initialization
+
+mastering process needs to be looked at again
+
+management ui is overly convoluted
+
+

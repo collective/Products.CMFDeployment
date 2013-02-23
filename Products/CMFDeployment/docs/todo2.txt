@@ -1,0 +1,86 @@
+-------------
+CMFDeployment
+-------------
+
+ setup project infrastructure
+ 
+   - dev mailing list
+   - checkin mailing list
+   - issue tracker
+   - wiki
+   
+   http://projects.objectrealms.net/projects/cmfdeployment
+   
+ - unit tests
+ 	- Export Module
+ 	- URL Resolver
+ 	- analyze output flow for correctness
+
+ - rename modules, setup aliases for compatiblity
+ - get rid of any bad vhm hacks
+ - before doing url resolution strip out pre block contents
+ 
+ User Interface cleanups
+
+  - General remove the tab links back to the container.
+  
+  - mastering ui (content rules) see if another organization
+    can make more sense. 
+    
+  - more descriptive docs in the UI
+
+ Identification
+ - use generators in content identification
+
+ Targets
+ - make deployment targets interface based
+
+ Sources
+ - make content source interface based
+   possibly allow for setting args on the catalog source
+ - allow for multiple sources
+
+ Mastering
+ - renamine mime mapping to content/deployment rule
+
+Bugs and Feature Requests
+
+  - editing the view path create a new entry in the Content Directory Views
+	
+  - need a way to delete a directory path from the Content Directory Views
+	
+  - create exporting policy to XML	
+  - separate deployment skin
+
+  - think about use cases for multihomed content, and implementation of 
+    identification of multihomecontent. ie say a content piece with
+    a script url that uses subpath traverse.
+	
+Sample Deployment Policy Test Run
+    - fixed issue with policy loading properly (new?)
+    - in doing the deployment and loading it up on a webserver two problems
+      were noticed. 
+    - first several forms point to the origin server, these need to be fixed
+      via a separate deployment skin.
+      
+    - second the css import urls are also pointing back to the origin server,
+      the uri resolver needs to be fixed.  (I noticed this in a couple areas)
+      
+      #### this is now fixed
+      
+      form urls as well cause problems for the resolver.
+      
+      ### leaving this unfixed for now the use cases for deploying dynamic actions
+      ### in static deployment aren't clear.
+      
+    - deployment link errors
+
+
+Deployment Link errors found
+  - portal root ( from contacts)
+  - in metadata if you are at the root the link for up is "#" and is giving an error
+    probably should ignore any link that start with "#"  Do we need to translate
+    anchors?
+  - [FIXED] resolver should ignore any href with javascript: as the protocol
+  - fix issue with linking to a folder directly
+  - items in Navigation portlet get a link error

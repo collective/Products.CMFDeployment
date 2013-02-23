@@ -1,0 +1,66 @@
+<dtml-call "RESPONSE.setHeader('Content-Type', 'text/xml')">
+<DeploymentPolicy id="<dtml-var getId>" pipeline="<dtml-var pipeline_id>">
+
+
+  <identification>
+   <dtml-let identification="getContentIdentification()">
+    <dtml-in "identification.filters.objectValues()">
+     <dtml-with sequence-item>
+      <filter id="<dtml-var getId>" 
+              expr="<dtml-var expression_text>"/>
+     </dtml-with>
+    </dtml-in>
+
+    <dtml-in "identification.sources.objectValues()">
+     <dtml-with sequence-item>
+      <dtml-var toXml>
+     </dtml-with>
+    </dtml-in>
+   </dtml-let>
+  </identification>
+
+
+  <resources>
+    <dtml-in "getSiteResources().objectValues()">
+     <dtml-with sequence-item>
+       <dtml-var toXml>
+     </dtml-with>
+    </dtml-in>
+  </resources>
+
+ <dtml-with "getContentOrganization().structure">
+ 
+  <organization 
+    cmf_mount="<dtml-var cmf_mount_point>" 
+    fs_mount="<dtml-var mount_point>">
+    
+    <dtml-in "restricted">
+      <restricted id="<dtml-var sequence-item>" />
+    </dtml-in>
+
+    <dtml-in composite_doc_types>
+      <composite type="<dtml-var sequence-item>" />
+    </dtml-in>
+
+  </organization>
+  
+</dtml-with>  
+  
+ <dtml-with getContentMastering>
+
+  <dtml-if "site_user.userid and site_user.udb_path">
+   <chain_user user="<dtml-var "site_user.userid">"  udb_path="<dtml-var "site_user.udb_path">"/>
+  </dtml-if>
+  
+  <mastering skin="<dtml-var "site_skin.skin_name">">
+    <dtml-in "rules.objectValues()">
+      <dtml-with sequence-item>
+	 <dtml-var toXml>
+      </dtml-with>
+    </dtml-in>
+  </mastering>
+  
+ </dtml-with>
+
+</DeploymentPolicy>
+

@@ -1,0 +1,37 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<h2> Edit Child View Rule (<dtml-var getId>)</h2>
+
+<form action="edit" method="POST">
+
+<table>
+
+<tr><td>Extension Expression</td>
+    <td><input type="text" name="extension_expression" value="<dtml-var extension_text>" size="100"></td></tr>
+
+<tr><td>View Method</td>
+    <td><input type="text" name="view_method" value="<dtml-var view_method>" size="50"></td></tr>
+
+<tr><td>Source Path (suffix on content relative url that this resolves
+to)</td>
+    <td><input type="text" name="source_path" value="<dtml-var source_path>" size="50"></td></tr>
+
+<!--
+<tr><td>Binary</td>
+    <td> <select name="binary:int"> 
+         <option value="0" <dtml-if "binary==0"> selected </dtml-if>> No</option>
+         <option value="1" <dtml-if "binary==1"> selected </dtml-if>> Yes</option>
+         </select>
+    </td></tr>
+-->
+
+<tr><td colspan="2">
+    <input type="submit" value="Edit Child View Rule"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

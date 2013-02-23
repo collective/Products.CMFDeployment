@@ -1,0 +1,19 @@
+<dtml-var manage_page_header>
+
+<h2> Add Portal Catalog Source </h2>
+
+
+<form action="addPortalCatalogSource" method="POST">
+<table>
+
+<tr><td>Id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Catalog Source"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

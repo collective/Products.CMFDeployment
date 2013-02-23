@@ -1,0 +1,192 @@
+
+
+Static Deployment Tool
+
+  Stages
+
+    Identify objects for deployment
+
+      - content types
+
+      - folder
+
+      - business logic /deployment policy 
+
+      - tales expressions
+	 
+	- error handling
+		
+	  - global level 
+		
+	    - abort the whole process
+	    - extensive logs
+	    - scream help
+
+	  - local level
+
+	    - tool options
+
+	    - decisions options 	
+
+		 - ignore
+
+		 - log
+	
+		 - abort (aborts all deployment)
+
+    Organize Documents
+     
+      Structure      
+
+      - target directory structure
+
+      Rules
+
+      - source folder
+  
+      - any catalogable metadata attribute
+
+      - precedence 
+
+	(take which ever one comes in the stack last, 
+	 in the case of conflict go with the first one 
+	 to match.)
+
+      Overkill Constraint Proof Algorithm
+
+	- logilab's constraint module.
+
+	- look for 
+
+
+    Marshal Cook Documents
+
+      - presentation templates
+
+      - pipeline handlers
+	
+	- html
+
+	- xml
+
+	- zip
+
+	- xsl
+
+	- archive local copy
+
+      - templates that will
+
+      -	context bound to source object in source folder
+
+      Exceptions
+
+	reuse error options as before, tool option for
+	error handling conditions by stage.
+
+    Deploy To Target
+
+      - target information (host, port)
+
+        - credential information ..
+
+      - plugin protocols
+
+	- rsync  
+		
+        (only protocol support retraction in a non client daemon setup)
+	
+	- ftp
+	
+ 	- http post -- ? 
+	
+	- scp
+
+      Error handling
+
+        - WARNING transactional deployment only available with client
+	  daemon.
+
+        - log
+
+    Client Daemon/Tool.
+
+	- reactor loop
+
+	- target directory base path
+
+	- plugins for reactor
+
+	Protocol
+
+	Deployment Manifest
+	- time deployment was created. (version num/label??)
+	- manifest sizes, file names, total count.
+
+	Startup
+
+	  - check server credentials.
+
+	  - check local environment.
+	
+	  // - action type (deployment, retraction)
+
+	  Code Path For Deployment
+
+	  - ask the server for a deployment manifest
+
+	  - check local enviroment (total file size, etc.)
+
+	  - respond yes, or error condition
+
+	  - server starts transfering files.
+
+	  - client stores in a tmp directory
+
+	  - on error condition or time out, 
+	    or a manifest conflict we 
+	    talk to our error handler plugin
+	    and clean out the tmp directory.
+
+	  - after finish of transfer (manifrest complete).
+	   
+	  XXX
+ 	  - scripts to run before replace.
+
+	  - scripts to run after replace to target directory
+
+	  - clean out tmp 
+
+	  // - ??? Future, do time stamp checks of overwrites.
+
+      Path for retraction
+
+	  - we need to be archiving.
+
+
+    Retraction.
+	
+	- clean up working directory before starting deployment process.
+
+	- log it.
+
+    
+  Design
+
+    DeploymentDescripitor 
+      - Source Destination
+
+    Content Type Registry integration.
+
+    Folder publishing options ala syndication.
+
+    ?       - DeploymentGuardScript
+
+    Tool associated Deployment Guard used for possible deployment content
+
+
+  Later
+
+    Workflow Integration.
+
+

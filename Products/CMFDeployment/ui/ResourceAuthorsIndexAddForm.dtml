@@ -1,0 +1,29 @@
+<dtml-var manage_page_header>
+
+<h2> Add Authors Index Resource </h2>
+
+<p> 
+
+<form action="addAuthorIndexesRule" method="POST">
+<table>
+
+<tr><td>Id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>View Path</td>
+    <td><input type="text" name="view_path"></td></tr>
+
+<tr><td>Source Path</td>
+    <td><input type="text" name="source_path"></td></tr>
+
+<tr><td>Deployment Path</td>
+    <td><input type="text" name="deployment_path"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Authors Index"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

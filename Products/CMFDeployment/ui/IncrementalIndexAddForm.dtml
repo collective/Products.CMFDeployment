@@ -1,0 +1,9 @@
+<dtml-var manage_page_header>
+
+<p class="form-help">
+Deployment Policy Incremental Indexes are not meant to be add TTW, as they depend on the presence
+of other components to be useful. They are automatically installed as part of an incremental
+policy construction.
+</p>
+
+<dtml-var manage_page_footer>

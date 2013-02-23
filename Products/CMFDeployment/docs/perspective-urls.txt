@@ -1,0 +1,40 @@
+Deployment from a URL Perspective
+
+ Content is deployed to a file system directory
+ known as the fs mount point.
+
+ the directory structure created at that point,
+ mirrors the cmf structure, as we don't currently 
+ allow remapping with the exception of directory views.
+
+ the external server for deployment content maybe
+ mounting that content onto a non-root node of the 
+ url tree. this gets configured in the URIResolver,
+ which will resolve uri references. 
+
+ - content is identified, 
+
+ - content is checked to insure that its below
+   the cmf mount point...
+
+ - its mapped to mime,
+
+ - its added to the uri resolver, which will 
+   map absolute_url(1) to either an explictly set
+   ContentPath (plus the target url node path and 
+   filename) or in the abscense of an explict ContentPath
+   to a absolute_relative of content - 
+   absolute relative of mount point + target url 
+   node path + content filename with extension
+
+ - content gets cooked
+
+ - content gets stored. during storage the storage
+   process the cmf structure is asked for the ContentPath
+   which is used to store the content relative to the fs 
+   mount point, the structure returns either an explictly
+   set content path or in the abscense of such, the contents
+   physical path relative to the cmf mount point.
+
+ some of this may seem a little confusing because of the mix
+ between physical paths (zodb), url paths, and fs paths.

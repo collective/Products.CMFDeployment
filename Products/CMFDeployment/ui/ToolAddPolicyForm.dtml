@@ -1,0 +1,39 @@
+<dtml-var manage_page_header>
+
+<dtml-var "manage_form_title(this(), _,
+           form_title='Add Deployment Policy',
+           )">
+
+<p class="form-help"> 
+   Deployment Policy represent a collection of information
+   that allows for static deployment of content
+</p>
+
+<form action="addPolicy" method="POST" enctype="multipart/form-data">
+<table>
+
+<tr><td class="form-label">Id</td>
+    <td><input type="text" name="policy_id"></td></tr>
+
+<tr><td class="form-label">Title</td>
+    <td><input type="text" name="policy_title"></td></tr>
+
+<tr><td class="form-label">Pipeline Type</td>
+    <td><select name="policy_pipeline_id">
+         <dtml-in DeploymentPipelineIds>
+	  <option value="<dtml-var sequence-item>"><dtml-var sequence-item></option>
+	 </dtml-in>
+	</select>
+    </td></tr>
+
+<tr><td class="form-label">Policy XML</td>
+    <td><input type="file" name="policy_xml"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" class="form-element" value="Add Policy"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

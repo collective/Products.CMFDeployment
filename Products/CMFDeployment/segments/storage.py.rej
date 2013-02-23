@@ -1,0 +1,49 @@
+***************
+*** 83,89 ****
+              #if content_path.endswith(sep):
+              #log.warning('invalid content path detected %s ... fixing'%content_path)
+              #    content_path = content_path[:-1]
+-             self.storeDescriptor( content_path, descriptor )
+  
+          return True
+      
+--- 83,89 ----
+              #if content_path.endswith(sep):
+              #log.warning('invalid content path detected %s ... fixing'%content_path)
+              #    content_path = content_path[:-1]
++             self.storeDescriptor( content_path, descriptor, pipe )
+  
+          return True
+      
+***************
+*** 112,124 ****
+              else: # already removed..
+                  pass
+                  
+-     def storeDescriptor(self, content_path, descriptor ):
+          """
+          """
+          filename = descriptor.getFileName()
+          location = path.join( content_path, filename )
+          rendered = descriptor.getRendered()
+- 
+          # creates directories as needed below mount point
+          if not self.createParentDirectories( location ):
+              return
+--- 112,127 ----
+              else: # already removed..
+                  pass
+                  
++     def storeDescriptor(self, content_path, descriptor, pipe ):
+          """
+          """
+          filename = descriptor.getFileName()
+          location = path.join( content_path, filename )
+          rendered = descriptor.getRendered()
++         
++         transformers = pipe.services["ContentTransforms"]                   # MORE THAN MEETS THE EYE
++         rendered = transformers.transform(descriptor, rendered, location)   # okay, not really
++         
+          # creates directories as needed below mount point
+          if not self.createParentDirectories( location ):
+              return

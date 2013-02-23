@@ -1,0 +1,57 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<h2> Log Configuration </h2>
+
+
+<form>
+ <table> 
+  <tr><th>Component Name</th>
+      <th>Record in History </th>
+      <th>Log to ZLog </th>
+      </tr>
+
+  <dtml-in getLogConfigurationEntries prefix="log" sort>
+
+  <tr>
+
+      <td>
+          <dtml-var log_key> 
+          <input type="hidden" name="entries.name:records" value="<dtml-var log_key>" />          
+      </td>
+  
+      <td><dtml-var log_item></td>
+
+      <dtml-comment>
+      <td>
+         <select name="entries.record_p:int:records">
+         <option value="1" <dtml-if "log_item[0]==1">selected</dtml-if>>Yes</option>
+         <option value="0" <dtml-if "log_item[0]==0">selected</dtml-if>>No</option>         
+         </select>
+      </td>
+      
+      <td>
+         <select name="entries.zlog_p:int:records">
+         <option value="1" <dtml-if "log_item[0]==1">selected</dtml-if>>Yes</option>
+         <option value="0" <dtml-if "log_item[0]==0">selected</dtml-if>>No</option>         
+         </select>
+      </td>
+      </dtml-comment>
+
+  </tr>
+
+
+  </dtml-in>
+
+  <tr colspan="3" align="center">
+     <td> <input type="submit" value="Edit Log Configuration"> </td>
+  </tr>
+
+ </table>
+</form>
+
+
+<dtml-var manage_page_footer>
+
+

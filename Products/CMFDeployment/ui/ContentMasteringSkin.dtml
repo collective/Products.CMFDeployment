@@ -1,0 +1,40 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<dtml-let current_skin="_.getattr(this().site_skin, 'skin_name', 'None')">
+<h2> Mastering: Skin </h2>
+
+<p> The Skin chosen here is used to when 'cooking' the content for deployment. </p>
+
+<b>Current Skin:</b> <dtml-var current_skin>
+
+<br><br>
+
+
+<form action="editSkin" method="POST">
+
+Skin Name <select name="skin_name">
+  <dtml-in "portal_skins.getSkinSelections()" prefix="skin">
+  <dtml-if "_['sequence-item']==current_skin">
+    <option value="<dtml-var skin_item>" selected><dtml-var skin_item></option>
+  <dtml-else>
+    <option value="<dtml-var skin_item>"><dtml-var skin_item></option>
+  </dtml-if>
+  </dtml-in>
+</select>
+
+ <br><br>
+
+Enabled <select name="enable:int">
+  <option value="1">Yes</option>
+  <option value="0">No</option>
+</select>
+
+ <input type="submit" value="change skin">
+
+</form>
+
+</dtml-let>
+
+<dtml-var manage_page_footer>

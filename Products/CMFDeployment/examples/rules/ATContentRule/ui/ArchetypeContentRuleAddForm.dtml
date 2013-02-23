@@ -1,0 +1,22 @@
+<dtml-var manage_page_header>
+
+<h2> Archetype Content Deployment Rule</h2>
+
+
+<form action="addArchetypeContentRule" method="POST">
+<table>
+
+<tr><td>Id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>Condition (TALES) </td>
+    <td><input type="text" name="condition"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Archetype Content Rule"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

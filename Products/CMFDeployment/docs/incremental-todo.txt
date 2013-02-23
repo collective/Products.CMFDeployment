@@ -1,0 +1,27 @@
+
+Things that need doing to make incremental deployment happen.
+
+ dependencies.py
+
+   dependency manager.
+
+   dependency content source and installation with policy pipe association.
+
+ incremental.py
+
+   incremental plugin index 
+     
+   content deletion source
+
+ lots of places
+
+  - multiple types of descriptor abstractions ( currently only for publication,
+    also need deletion ).
+
+ segments.py
+  - cleaning up and adding abstractions to segments or swapping in 
+    taskengine, things like split, iterator, join, etc.
+  
+  content pipeline filtering segment for ignoring duplicates.
+ 
+

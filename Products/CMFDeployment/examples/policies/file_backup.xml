@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<policy id="file_backup" pipeline_id="incremental" title="incremental" type="dict">
+	<organization cmf_path="" fs_path="*/examples/static/backup" type="dict" />
+
+	<transports type="list"/>
+	<site_resources type="list" />
+	<content_transforms type="dict"/>
+
+	<identification type="dict">
+		<sources type="list">
+			<entry factory="addIncrementalCatalogSource" id="catalog" product="CMFDeployment" title="catalog" type="dict"/>
+		</sources>
+		<filters type="list"/>
+	</identification>
+
+	<resolver type="dict">
+		<target_path type="string">
+			/
+		</target_path>
+		<external_resolver_path type="string"/>
+		<link_error_url type="string">
+			deploy_link_error
+		</link_error_url>
+		<enable_text_resolution type="bool">
+			True
+		</enable_text_resolution>
+		<vhost_path type="string"/>
+		<relative_target_resolution type="bool">
+			False
+		</relative_target_resolution>
+	</resolver>
+
+	<mastering type="dict">
+		<rules type="list">
+			<entry factory="addContentRule" id="File" product="CMFDeployment" type="dict">
+				<filename type="string">
+					object/getId
+				</filename>
+				<view_method type="string"/>
+				<condition type="string">
+					python: object.portal_type == 'File'
+				</condition>
+				<aliases type="list" />
+			</entry>
+		</rules>
+		<chain_user type="dict" udb_path="special" user="system">
+			<enable type="bool">
+				True
+			</enable>
+		</chain_user>
+		<chain_skin skin_name="Plone Default" type="dict">
+			<enable type="bool">
+				True
+			</enable>
+		</chain_skin>
+	</mastering>
+</policy>

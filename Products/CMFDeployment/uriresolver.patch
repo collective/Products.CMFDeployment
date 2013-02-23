@@ -1,0 +1,41 @@
+Index: URIResolver.py
+===================================================================
+--- URIResolver.py	(revision 1943)
++++ URIResolver.py	(working copy)
+@@ -231,12 +231,16 @@
+             parsed = urlparse(u)
+             
+             # convert to absolute_relative and lookup
+-            nu = self.uris.get( parsed[2], default)
++            turl = parsed[2]
++            if not turl.startswith(self.vhost_path) and self.vhost_path != '':
++                log.warning("Prepending %s to %s, vhost fix" % (self.vhost_path, parsed[2]))
++                turl = '%s%s' % (self.vhost_path, parsed[2])
++            nu = self.uris.get(turl, default)
+ 
+             # try with all components present attached 
+             if nu is default:
+                 format_str = "%s"
+-                parts = [parsed[2]]
++                parts = [turl]
+                 
+                 if parsed[3]: # attach paramaters
+                     format_str += ":%s"
+@@ -255,6 +259,8 @@
+         # absolute relative /
+         elif u.startswith('/'):
+             #nu = self.uris.get('%s/%s'%(self.source_host,u), default)
++            if not u.startswith(self.vhost_path) and self.vhost_path!='':
++                u = '%s%s' % (self.vhost_path, u) 
+             nu = self.uris.get(u, default)
+             
+         # relative with .||.. prefix
+@@ -401,6 +407,8 @@
+                     nu = self.ext_resolver( u, content_url, content_folderish_p, _marker, descriptor )
+ 
+                 if nu is _marker: # no replacement url found
++                    import pdb ; pdb.set_trace( )
++                    self.resolveURI(u, content_url, content_folderish_p, content=descriptor.getContent())
+                     log.warning('unknown url (%s) from %s'%(u, content_url))
+                     nu = self.link_error_url
+                 elif nu is None: # not a resolvable url type  

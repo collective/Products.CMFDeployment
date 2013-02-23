@@ -1,0 +1,22 @@
+<dtml-var manage_page_header>
+
+<h2> Add Zip Transport </h2>
+
+
+<form action="addZipTransport" method="POST">
+<table>
+
+<tr><td>id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>Target Directory</td>
+    <td><input type="text" name="location"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Zip Transport"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

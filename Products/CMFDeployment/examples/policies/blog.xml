@@ -1,0 +1,151 @@
+<!--
+
+Quills Example Blog
+
+I separated out the quills css and images into separate skin directories, custom_quill_css
+and custom_quill_images respectively. the other custom directories were for my own 
+customizations.
+
+-->
+
+<DeploymentPolicy id="personal_blog_wquills">
+
+  <identification>
+     <filter id="no_members" 
+             expr="python: not memento.getPath().find('Members')+1"/>
+  </identification>
+
+  <strategy id="default" />
+
+  <skins>
+          <directory view_path="/plone_images"
+                 deploy_path="/blog/images"
+                 source_path="/" />
+          <directory view_path="/plone_ecmascript"
+                 deploy_path="/blog/javascript"
+                 source_path="/" />
+          <directory view_path="/plone_styles"
+                 deploy_path="/blog/css"
+                 source_path="/" />
+          <directory view_path="/custom_quill_images"
+                 deploy_path="/blog/images"
+                 source_path="/" />
+          <directory view_path="/custom_quill_css"
+                 deploy_path="/blog/css"
+                 source_path="/" />
+          <directory view_path="/custom_blog_css"
+                 deploy_path="/blog/css"
+                 source_path="/" />
+          <directory view_path="/custom_blog_images"
+                 deploy_path="/blog/images"
+                 source_path="/" />
+      </skins>
+
+  <chain_user user="nobody" udb_path="special" />
+  
+  <organization 
+    cmf_mount="/" 
+    fs_mount="*/examples/static/quills">
+    
+          <restricted id="Members" />
+          <restricted id="content_type_registry" />
+          <restricted id="acl_users" />
+          <restricted id="mimetypes_registry" />
+          <restricted id="archetype_tool" />
+          <restricted id="uid_catalog" />
+          <restricted id="reference_catalog" />      
+  </organization>
+  
+     
+  <mastering skin="Plone Deployment">
+
+    <!-- executed in order and order is important -->
+
+          	 
+<mime id="Site"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'Plone Site'"
+      ghost="1"
+      ext_expr="python: 'index.html'%object.getId()"
+      view_method="string:index_html" />
+
+                	 
+<mime id="Folder"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      ghost="1"
+      filter_expr="python: object.portal_type == 'Folder'"
+      ext_expr="python: '%s/index.html'%object.getId()"
+      view_method="string:index_html" />
+
+                	 
+<mime id="IndexDocument"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.getId()=='index_html'"
+      ext_expr="python: 'index.html'"
+      view_method="" />
+
+                	 
+<mime id="Document"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'Document'"
+      ext_expr="python: '%s.html'%object.getId()"
+      view_method="" />
+
+                	 
+<mime id="Image"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'Image'"
+      ext_expr="python: object.getId()"
+      view_method="" />
+
+                	 
+<mime id="Event"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'Event'"
+      ext_expr="python: '%s.html'%object.getId()"
+      view_method="" />
+
+                	 
+<mime id="weblog_topic"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'WeblogTopic'"
+      ext_expr="python: '%s/index.html'%object.getId()"
+      view_method="" />
+
+                	 
+<mime id="weblog"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'Weblog'"
+      ext_expr="python: '%s/index.html'%object.getId()"
+      view_method="" />
+
+                	 
+<mime id="weblog_archive"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'WeblogArchive'"
+      ext_expr="python: '%s/index.html'%object.getId()"
+      view_method="" />
+
+                	 
+<mime id="weblog_entry"
+      product="CMFDeployment"
+      factory="addMimeMapping"
+      filter_expr="python: object.portal_type == 'WeblogEntry'"
+      ext_expr="python: '%s.html'%object.getId()"
+      view_method="" />
+
+          
+  </mastering>
+  
+ 
+</DeploymentPolicy>
+

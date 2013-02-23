@@ -1,0 +1,15 @@
+#################################
+Deployment from a Time Perspective
+
+Some crude time estimates, clearly show that
+the overwhelming majority of time is spent inside
+the rendering process. 
+
+still, its good to be aware of some other possible,
+places of linear time growth. the content filtering
+section . Note this is unlike the mime mapping section 
+which also uses filters, but uses a short circuit alg.
+
+a large amount of time is spent in the resolver,
+switching to attributes instead of functions might
+help access speed here.

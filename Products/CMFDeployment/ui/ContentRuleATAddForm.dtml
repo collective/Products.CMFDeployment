@@ -1,0 +1,33 @@
+<dtml-var manage_page_header>
+
+<h2> Add AT Content Rule </h2>
+
+
+<form action="addATContentRule" method="POST">
+<table>
+
+<tr><td>Id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>Condition Expression</td>
+    <td><input type="text" name="condition" size="100"></td></tr>
+
+<tr><td>Filepath Expression</td>
+    <td><input type="text" name="extension_expression" size="100"></td></tr>
+
+<tr><td>View Method (optional)</td>
+    <td><input type="text" name="view_method" size="50"></td></tr>
+
+<tr><td>Aliases</td>
+    <td><textarea name="aliases:lines"></textarea></td>
+</tr>
+
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Archetypes Content Rule"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

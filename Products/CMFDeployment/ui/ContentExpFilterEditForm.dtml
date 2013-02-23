@@ -1,0 +1,21 @@
+<dtml-var manage_page_header>
+
+<h2> Edit Content Filter </h2>
+
+<form action="editFilter" method="POST">
+<table>
+
+<tr><td>Filter Expression</td>
+    <td><input type="text" 
+	       name="expression_text"
+	       value="<dtml-var expression_text>" 
+	       size="100"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Edit Content Filter"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

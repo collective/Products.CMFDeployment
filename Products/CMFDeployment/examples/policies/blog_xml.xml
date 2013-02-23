@@ -1,0 +1,52 @@
+<DeploymentPolicy id="personal_xml_blog">
+
+  <identification>
+     <filter id="no_members" 
+             expr="python: not memento.getPath().find('Members')+1"/>
+  </identification>
+
+  
+  <strategy id="default" />
+
+  <skins>
+  </skins>
+
+  <chain_user user="nobody" udb_path="special" />
+  
+  <organization 
+    cmf_mount="/" 
+    fs_mount="*/examples/static/xml">
+          <restricted id="Members" />
+          <restricted id="content_type_registry" />
+          <restricted id="acl_users" />
+          <restricted id="mimetypes_registry" />
+          <restricted id="archetype_tool" />
+          <restricted id="uid_catalog" />
+          <restricted id="reference_catalog" />      
+  </organization>
+  
+     
+  <mastering skin="Plone Deployment">
+
+    <!-- executed in order and order is important -->
+
+   <mime id="weblog"
+         product="CMFDeployment"
+         factory="addMimeMapping"
+         filter_expr="python: object.portal_type == 'Weblog'"
+         ext_expr="python: '%s.xml'%object.getId()"
+         view_method="string:deploy_xml" />
+
+   <mime id="weblog_entry"
+         product="CMFDeployment"
+         factory="addMimeMapping"
+         filter_expr="python: object.portal_type == 'WeblogEntry'"
+         ext_expr="python: '%s.xml'%object.getId()"
+         view_method="string:deploy_xml" />
+
+          
+  </mastering>
+  
+ 
+</DeploymentPolicy>
+

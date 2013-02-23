@@ -1,0 +1,25 @@
+<dtml-var manage_page_header>
+
+<h2> Add SiteCopy Transport </h2>
+
+
+<form action="addSiteCopyTransport" method="POST">
+<table>
+
+<tr><td>id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>RCFile Path</td>
+    <td><input type="text" name="rcfile" size="60"></td></tr>
+
+<tr><td>Store Path</td>
+    <td><input type="password" name="storepath" size="60"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add SiteCopy Target"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

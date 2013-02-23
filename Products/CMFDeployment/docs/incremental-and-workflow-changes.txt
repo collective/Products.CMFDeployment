@@ -1,0 +1,12 @@
+one of the tricky parts of doing incremental deployments, with the current architecture
+of relying on catalog index for modification events, are workflow changes which only 
+reindex on values specified as being workflow attributes of an object.
+
+as a workaround for content whose deployment depends on workflow state, the incremental index 
+can be added a a dummy workflow variable, which will ensure that the object is indeed
+reindexed on workflow change in a manner visible to the deployment policy.
+
+hopefully when a real event system lands that does modification notification the current
+plugin index can be ripped out in favor of it.
+
+

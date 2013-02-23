@@ -1,0 +1,34 @@
+<dtml-var manage_page_header>
+
+<h2> Add RsyncSSH Transport </h2>
+
+
+<form action="addRsyncSSHTransport" method="POST">
+<table>
+
+<tr><td>id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>User</td>
+    <td><input type="text" name="user"></td></tr>
+
+<tr><td>Password</td>
+    <td><input type="password" name="password"></td></tr>
+
+<tr><td>Password Confirm</td>
+    <td><input type="password" name="password_confirm"></td></tr>
+
+<tr><td>Host</td>
+    <td><input type="text" name="host"></td></tr>
+
+<tr><td>Target Directory</td>
+    <td><input type="text" name="remote_directory"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Rsync Transport"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

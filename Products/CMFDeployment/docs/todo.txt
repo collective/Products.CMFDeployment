@@ -1,0 +1,43 @@
+- missing zmi for setting ghost status on mimes.
+
+- missing managment option to set restricted ids 
+
+- flatten menu structure
+
+- optimize, speed and memory usage
+
+- archiving options
+
+X - documentation
+
+X - action specified per type
+
+X - separate out protocol
+
+X - incremental deployment
+
+X - merge directory views into deployment
+
+X - merge install into default config 
+
+X - bind to folder in content structure
+
+X? - default class for getting content
+
+X - desparately need sorted object managers for all of this.
+
+X - check images
+
+X - skin inclusion picks option for including skins
+
+X - think hard about replacing relative content links
+
+rejected 
+
+- implementation of pipe segments for the whole process
+  
+  - group, and then priority within group
+
+  - global + local customizations?
+
+  - strategies option as alternative

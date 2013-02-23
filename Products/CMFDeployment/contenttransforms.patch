@@ -1,0 +1,65 @@
+Index: ContentTransforms.py
+===================================================================
+--- ContentTransforms.py	(revision 1937)
++++ ContentTransforms.py	(working copy)
+@@ -72,7 +72,6 @@
+         portal  = getToolByName(self,'portal_url').getPortalObject()
+         content = descriptor.getContent()
+         context = getDeployExprContext(content, portal)
+-        
+         for fr in self.rules.objectValues('Content Transform Rule'):
+             if not fr.valid(context):
+                 continue
+@@ -86,7 +85,7 @@
+                 rendered = script(descriptor, rendered, file_path)
+             except:
+                 log.warning('Content Transform Exception from %s on %s '%(
+-                    script_id,
++                    fr.script_id,
+                     descriptor.content_url)
+                 )
+                 
+Index: segments/storage.py
+===================================================================
+--- segments/storage.py	(revision 1937)
++++ segments/storage.py	(working copy)
+@@ -83,7 +83,7 @@
+             #if content_path.endswith(sep):
+             #log.warning('invalid content path detected %s ... fixing'%content_path)
+             #    content_path = content_path[:-1]
+-            self.storeDescriptor( content_path, descriptor )
++            self.storeDescriptor( content_path, descriptor, pipe )
+ 
+         return True
+     
+@@ -112,13 +112,16 @@
+             else: # already removed..
+                 pass
+                 
+-    def storeDescriptor(self, content_path, descriptor ):
++    def storeDescriptor(self, content_path, descriptor, pipe ):
+         """
+         """
+         filename = descriptor.getFileName()
+         location = path.join( content_path, filename )
+         rendered = descriptor.getRendered()
+-
++        
++        transformers = pipe.services["ContentTransforms"]                   # MORE THAN MEETS THE EYE
++        rendered = transformers.transform(descriptor, rendered, location)   # okay, not really
++        
+         # creates directories as needed below mount point
+         if not self.createParentDirectories( location ):
+             return
+Index: segments/environment.py
+===================================================================
+--- segments/environment.py	(revision 1937)
++++ segments/environment.py	(working copy)
+@@ -76,5 +76,7 @@
+ 
+         addService("ContentStorage", ContentStorage() )
+ 
++        transforms = ctxobj.getContentTransforms()
++        addService("ContentTransforms", transforms)
+ 
+         addService("DeploymentPolicy", ctxobj )

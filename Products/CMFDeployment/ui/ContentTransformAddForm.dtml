@@ -1,0 +1,29 @@
+<dtml-var manage_page_header>
+
+<h2> Add Content Transform Rule</h2>
+
+
+<form action="addRule" method="POST">
+<table>
+
+<tr><td>Id</td>
+    <td><input type="text" name="id"></td></tr>
+
+<tr><td>Condition Expression</td>
+    <td><input type="text" name="condition" size="100"></td></tr>
+
+<tr><td>Transform </td>
+    <td> <select name="script_id">
+         <dtml-in listTransformScripts prefix="script">
+           <option value="<dtml-var script_item>"><dtml-var script_item></option>
+         </dtml-in>
+    </td>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Content Transform Rule"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

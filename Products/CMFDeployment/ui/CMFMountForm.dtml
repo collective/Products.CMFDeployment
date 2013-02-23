@@ -1,0 +1,31 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+
+<h2> CMF Mount Form</h2>
+
+<p> relative path from
+    the portal root that will be used
+    for the structure </p>
+
+ 
+<p> <font color="red">Note:</font> content not under the cmf mount root will be implicitly
+    filtered out </p>
+
+Existing Mount Point: <dtml-var cmf_mount_point>
+
+<br><br>
+
+<form action="setCMFMountPoint" method="post">
+
+Mount Point: <input type="text" name="cmf_mount_point">
+
+<br>
+<input type="submit" value="Set Mount Point">
+
+
+</form>
+
+<dtml-var manage_page_footer>
+
+

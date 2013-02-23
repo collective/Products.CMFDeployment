@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="Products.CMFDeployment">
+
+    <include package="Products.CMFCore" zcml:condition="have plone-41" file="permissions.zcml" />
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+</configure>

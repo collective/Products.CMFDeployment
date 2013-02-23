@@ -1,0 +1,57 @@
+<dtml-var manage_page_header>
+
+<dtml-var manage_tabs>
+<dtml-let history="getDeploymentHistory()">
+<dtml-let last_time="history.getLastTime()">
+
+<h2> Deployment Policy </h2>
+
+<p> Defines, what content should be deployed, what structure it should be deployed on to,
+how it should be displayed when deployed, and how it should be deployed </p>
+
+<form action="execute" method="POST">
+<fieldset>
+   <legend class="form-title"> Execute Deployment    <dtml-if last_time><a href="preview">(Preview - Dry Run)</a></dtml-if></legend>
+ <div class="form-label" style="padding: 4px"> <label> Reset Deployment Date</label> <input type="checkbox" name="reset_date:int" value="1"/> </div>
+
+<!--
+ <dtml-if last_time>  
+   <div class="form-label" style="padding: 4px"> <label> Redeploy Site Sources (skin) </label> <input type="checkbox" name="DeployResources:int" value="1"/> </div>
+ </dtml-if>
+-->
+
+ <div class="form-element"> <input type="submit" class="context" value="Execute Policy"> 
+ </div>
+</fieldset>
+
+</form>
+
+
+<dtml-if last_time>
+<fieldset>
+  <legend class="form-title">Status</legend>
+  <div class="form-help"> Last Deployment Time - <dtml-var last_time>   
+    <em> <a href="<dtml-var "history.getLast().absolute_url()">">See Log</a></em>
+  </div>
+</fieldset>
+ </dtml-if>
+
+
+<fieldset>
+  <legend class="form-title">Options</legend>
+  <div class="form-help" style="padding: 4px">
+    Reset - You can also clear all non configuration persistent state from the
+    policy. If your a configuring and executing a policy, its a good idea
+    to do this after changing configuration. it will reset the incremental state. 
+    <em> <a href="clearState">Clear State</a> </em>
+  </div>
+  <div class="form-help" style="padding: 4px">
+    Download Policy - as <em><a href="export">XML</a></em>
+  </div>
+</fieldset>
+
+
+
+</dtml-let>
+</dtml-let>
+<dtml-var manage_page_footer>

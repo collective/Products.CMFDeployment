@@ -1,0 +1,32 @@
+Content Identification
+
+   Content Source
+
+   Expression Filters
+
+   Script Filters
+
+   Memento Objects
+
+
+memento_attributes = """
+CreationDate
+Creator
+Date
+Description
+EffectiveDate
+ExpiresDate
+ModificationDate
+Subject
+Title
+Type
+created
+effective
+end
+expires
+getIcon
+modified
+portal_type
+review_state
+start
+"""

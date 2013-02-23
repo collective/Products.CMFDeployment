@@ -1,0 +1,40 @@
+
+ The incremental system depends heavily on the catalog, and date
+ queries against the modified index to determine new content that
+ needs to be deployed.
+
+ The modified indexed is currently utilized to store the semantic
+ modification date, not the modification time of the object.
+
+ One issue that results is that when content is moved, the content
+ is indexed at its new location with the same modification date
+ as the old object. Which if its prior to a deployment means that
+ the new location won't be deployed as part of the next incremental
+ deploy cycle.
+
+ there are a couple of solutions to this
+
+   - adding a bobobase_modification_date index which the incremental source
+     utilizes. this means when the object is indexed again after the
+     move this date will reflect the time of the move.
+
+     overall this seems best, and divorces the semantic mod time from
+     the object mod time that the incremental pipeline cares about,
+     although really the incremental pipeline wants new records from 
+     the catalog since a given date, which amounts to the same in this 
+     case.
+
+   - in unindex in the incremental index, force the content's semantic
+     modified date to change to current time. this could have
+     potentially bad application behavior though :-( and seems icky.
+
+   - utilize a separate source and modify the index/unindex of the
+     incremental index to keep track of move's and populate the source
+     with a reference to the object.
+    
+
+     
+     
+
+ 
+ 

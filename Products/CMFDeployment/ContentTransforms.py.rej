@@ -1,0 +1,33 @@
+***************
+*** 72,78 ****
+          portal  = getToolByName(self,'portal_url').getPortalObject()
+          content = descriptor.getContent()
+          context = getDeployExprContext(content, portal)
+-         
+          for fr in self.rules.objectValues('Content Transform Rule'):
+              if not fr.valid(context):
+                  continue
+--- 72,77 ----
+          portal  = getToolByName(self,'portal_url').getPortalObject()
+          content = descriptor.getContent()
+          context = getDeployExprContext(content, portal)
+          for fr in self.rules.objectValues('Content Transform Rule'):
+              if not fr.valid(context):
+                  continue
+***************
+*** 86,92 ****
+                  rendered = script(descriptor, rendered, file_path)
+              except:
+                  log.warning('Content Transform Exception from %s on %s '%(
+-                     script_id,
+                      descriptor.content_url)
+                  )
+                  
+--- 85,91 ----
+                  rendered = script(descriptor, rendered, file_path)
+              except:
+                  log.warning('Content Transform Exception from %s on %s '%(
++                     fr.script_id,
+                      descriptor.content_url)
+                  )
+                  

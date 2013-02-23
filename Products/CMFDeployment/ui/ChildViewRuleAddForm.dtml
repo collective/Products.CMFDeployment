@@ -1,0 +1,29 @@
+<dtml-var manage_page_header>
+
+<h2> Add Child View Rule </h2>
+
+<form action="addChildView" method="POST">
+
+<table>
+
+<tr><td>Id</td>
+    <td><input type="text" name="id"> </td>
+
+<tr><td>Extension Expression</td>
+    <td><input type="text" name="extension_expression" value="<dtml-var extension_text>" size="100"></td></tr>
+
+<tr><td>View Method</td>
+    <td><input type="text" name="view_method" value="<dtml-var view_method>" size="50"></td></tr>
+
+<tr><td>Source Path (suffix on content relative url that this resolves
+to)</td>
+    <td><input type="text" name="source_path" value="" size="50"></td></tr>
+
+<tr><td colspan="2">
+    <input type="submit" value="Add Child View Rule"> </td></tr>
+
+</table>
+
+</form>
+
+<dtml-var manage_page_footer>

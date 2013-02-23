@@ -1,0 +1,848 @@
+2003-01-08 23:45  kapil
+
+	* ContentIdentification.py (1.15), ContentMastering.py (1.24),
+	Strategies/Default.py (1.8): 
+	trying some optimizations on memory
+
+2003-01-08 23:29  kapil
+
+	* Protocols/__init__.py (1.6): 
+	
+	import log from the right location
+
+2003-01-08 23:21  kapil
+
+	* Protocols/__init__.py (1.5): 
+	
+	- behave nicely if rsync protocol import fails...
+
+2003-01-08 20:33  kapil
+
+	* ContentMastering.py (1.23), Descriptor.py (1.11), URIResolver.py
+	(1.21), __init__.py (1.8), Strategies/Default.py (1.7): 
+	nothing of substance, backed out of some changes which never made
+	it to cvs, committing to sync files.
+
+2003-01-07 06:31  kapil
+
+	* ContentOrganization.py (1.12): 
+	 - nested scope fix for py2.1
+	 - accessor for compound doc types
+
+2003-01-05 03:40  kapil
+
+	* ChangeLog (1.7): updated
+
+2003-01-05 03:32  kapil
+
+	* ChangeLog (1.6), ContentDeployment.py (1.11), ContentStorage.py
+	(1.9), ContentURI.py (1.11), DefaultConfiguration.py (1.10),
+	DeploymentExceptions.py (1.4), DeploymentInterfaces.py (1.5),
+	DeploymentPolicy.py (1.16), DeploymentStrategy.py (1.16),
+	Descriptor.py (1.10), ExpressionContainer.py (1.4), Namespace.py
+	(1.9), README.txt (1.7), Statistics.py (1.7), __init__.py (1.7),
+	utils.py (1.5), Extensions/Install.py (1.4), Protocols/RsyncSSH.py
+	(1.4), Protocols/__init__.py (1.4), Strategies/Default.py (1.6),
+	Strategies/__init__.py (1.3), docs/ConfigurationGuide.txt (1.2): 
+
+	- changed contact email address, old one is going away next week
+
+2003-01-05 03:31  kapil
+
+	* PolicyReader.py (1.13): 
+	
+	 - some changes to support a distributed plone policy file, we
+	can't specify
+	   exact directory names on unknown systems, so we introduce syntax
+	to allow
+	   for dir spec. relative to the cmf deployment installation.
+
+2003-01-05 03:30  kapil
+
+	* ContentIdentification.py (1.14): 
+	 - integrated directly restricted id filtering
+	
+	 - cleanedup logging statements (renabled, and using getPath, and
+	portal_type)
+
+2003-01-05 03:27  kapil
+
+	* ContentMastering.py (1.22): 
+	 - log when no mime mapping found for a content object
+	
+	 - removed unused site root chaining code
+
+2003-01-05 03:25  kapil
+
+	* DeploymentHistory.py (1.7): 
+	
+	 - store history ids as strings, not integers. integers seem to
+	cause problems
+	   with zpublisher, even though the proper object is returned via
+	bobo_traverse
+
+2003-01-05 03:23  kapil
+
+	* DeploymentTool.py (1.6): 
+	
+	 - redirect to policy's manage workspace, not manage main
+
+2003-01-05 03:23  kapil
+
+	* ContentDirectoryViews.py (1.9): 
+	
+	 - catch errors from skin resources which raise errors while
+	cooking, log em,
+	   and make the descriptor a ghost.
+
+2003-01-05 03:20  kapil
+
+	* URIResolver.py (1.20), testResolver.py (1.3): 
+	 - new url replacement strategy, to fix some resolution bugs
+	   when shorter urls would actually replace text of longer ones.
+	
+	   the new scheme, uses the exact text of the original link for
+	   replacement, and does the url replacement inline of the link
+	text,
+	   before doing a source replacement. its 100% safe and accurate,
+	   but a little slower (+%30 overhead over previous algorithm)
+	
+	 - fix and test for for relative url resolution bug
+
+2003-01-05 03:16  kapil
+
+	* FileStructure.py (1.8): 
+	 - new filter foldered collector impl that does incremental
+	   garbage collection along the way. this takes care of the
+	   biggest memory spike when using the deployment tool :-)
+
+2003-01-05 03:14  kapil
+
+	* MimeMapping.py (1.3), ui/MimeExtensionMappingEditForm.dtml (1.3):
+	
+	
+	 - added notes, cvs id to mimemapping
+	 - added ttw editing for ghost flag
+
+2003-01-05 03:11  kapil
+
+	* examples/plone.xml (1.1): 
+	 - start of an example policy for a default plone site. when
+	finished this
+	   should deploy a static copy of a plone site out of the box, to
+	be installed
+	   alongside the tool installation.
+
+2003-01-05 03:10  kapil
+
+	* DeploymentLogging.py (1.1), Log.py (1.7),
+	ui/LoggingConfigurationForm.dtml (1.1): 
+	 added support for component level logging options
+	
+	 - components can be configured individually to either
+	   log to zlog, or be recorded by log monitors
+	
+	 - added ttw configuration for logging
+	
+	 - the ttw config is disabled currently, i ran into something nasty
+	   so i'm holding off on it till post 1.0
+	
+	 - another note about logging config, its not really safe for
+	   concurrent policy execution, as the last executed policy's
+	config
+	   will be used. i should set it up as a global config for the
+	tool.
+
+2003-01-05 03:04  kapil
+
+	* ContentOrganization.py (1.11), ui/OrganizationCompositeForm.dtml
+	(1.1), ui/OrganizationRestrictedForm.dtml (1.1): 
+	
+	- new support for Composite Content types, basically folderish
+	objects which	don't want to be represented on the fs as folders.
+	
+	- exposed restricted ids for web configuration.
+
+2003-01-02 22:46  kapil
+
+	* ContentURI.py (1.10), PolicyReader.py (1.12): 
+	removed vhost path separate edit method.
+
+2003-01-02 22:10  kapil
+
+	* docs/ConfigurationGuide.txt (1.1): 
+	
+	- Added thorough configuration guide
+
+2003-01-02 14:31  kapil
+
+	* README.txt (1.6), docs/perspective-time.txt (1.2), docs/todo.txt
+	(1.2): 
+	- misc doc changes
+
+2003-01-02 14:30  kapil
+
+	* Strategies/common.py (1.2): 
+	- added descriptor factory
+
+2003-01-02 14:28  kapil
+
+	* DeploymentHistory.py (1.6): 
+	- history objects now store stats and log messages, they become
+	logging monitors during the execution of a policy on a per thread
+	basis (need some additional testing of this.)
+
+2003-01-02 14:27  kapil
+
+	* ui/: DeploymentHistoryOverview.dtml (1.2), HistoryView.dtml
+	(1.1): added more extensive history viewing.
+
+2003-01-02 14:26  kapil
+
+	* DeploymentPolicy.py (1.15), Strategies/Default.py (1.5): 
+	remove history responsibility from strategy, added display
+	semantics for stats to policy
+
+2003-01-02 14:25  kapil
+
+	* URIResolver.py (1.19), testResolver.py (1.2): 
+	 - refactoring to make unittesting easier
+	 - more unit tests
+	 - doesn't use content object at all anymore, only descriptor
+
+2003-01-02 14:22  kapil
+
+	* Descriptor.py (1.9): 
+	added descriptor factory, pushed some additional burden onto the
+	descriptor for content_url and is content folderish, for less round
+	trips to the content object.
+
+2003-01-02 14:21  kapil
+
+	* ContentStorage.py (1.8): 
+	
+	- only log errors now
+
+2003-01-02 14:20  kapil
+
+	* DeploymentPolicy.py (1.14): 
+	
+	 - maint. history is policy's responsibility now.
+
+2003-01-02 14:19  kapil
+
+	* ContentURI.py (1.9), ui/ContentURIOverview.dtml (1.2): 
+	made vhost_path web accessible
+
+2003-01-02 14:19  kapil
+
+	* ContentMastering.py (1.21): 
+	
+	- commented out logging, new logging policy is to only log errors
+
+2003-01-02 14:18  kapil
+
+	* ContentIdentification.py (1.13): 
+	- fixed logging instrumentation not to retrieve the object
+	
+	- commented out logging
+
+2003-01-02 14:17  kapil
+
+	* ContentDirectoryViews.py (1.8): 
+	- comment formatting
+
+2003-01-02 14:16  kapil
+
+	* Log.py (1.6): 
+	added support for log monitors
+
+2002-12-30 23:52  kapil
+
+	* ContentOrganization.py (1.10), URIResolver.py (1.18),
+	testResolver.py (1.1): 
+	added some resolver tests
+	
+	- fixed a resolver bug for relative urls (.) for folderish content
+	- removed debugging comment from organization
+
+
+2002-11-08 14:06  kapil
+
+	* PolicyReader.py (1.11): 
+	
+	 a little better printing when run from the cli
+
+2002-11-08 14:05  kapil
+
+	* URIResolver.py (1.16): 
+	
+	added
+	
+	  - uniqueness filter on urls, this gives a noticeable speed
+	improvement.
+	
+	  - added in view method for all content to the uri db.
+
+2002-11-08 12:58  kapil
+
+	* ChangeLog (1.5): updated
+
+2002-11-08 12:56  kapil
+
+	* Extensions/Install.py (1.3): 
+	
+	- switched license from doc to comment
+
+2002-11-08 12:55  kapil
+
+	* ContentDirectoryViews.py (1.7): 
+	
+	- doc additon/reformatting for content dv
+
+2002-11-08 12:54  kapil
+
+	* README.txt (1.5): 
+	better docs, clean
+
+2002-11-08 11:36  kapil
+
+	* ContentDirectoryViews.py (1.6), ContentURI.py (1.8),
+	URIResolver.py (1.15): 
+	
+	sundry ugly hacks for sites without proper vhosting/proxy setups
+	
+	basically in such situations, absolute_url works fine but
+	absolute_url(relative=1) is borked. which is a central aspect of
+	the dtool.
+
+2002-11-08 11:34  kapil
+
+	* ContentMastering.py (1.20): 
+	
+	added
+	
+	 - implmentation for user chaining during deployment
+
+2002-11-08 11:33  kapil
+
+	* Namespace.py (1.8): 
+	
+	added getsecuritymanger to default namespace
+
+2002-11-08 11:32  kapil
+
+	* PolicyReader.py (1.10): 
+	
+	added
+	
+	- content uri options
+	
+	- chain user settings
+
+2002-11-08 11:31  kapil
+
+	* DeploymentPolicy.py (1.13): 
+	
+	incidental
+
+2002-11-08 11:30  kapil
+
+	* ui/ContentMasteringUser.dtml (1.1): 
+	ui for setting user to be used during deployment
+
+2002-11-07 17:13  kapil
+
+	* Log.py (1.5): 
+	
+	turned up logging level
+
+2002-11-07 14:47  kapil
+
+	* PolicyReader.py (1.9): 
+	
+	- properly loads up skin directories from xml
+
+2002-11-07 12:28  kapil
+
+	* ContentMastering.py (1.19): 
+	
+	- fix small bug for class attr on site skin
+
+2002-11-07 12:16  kapil
+
+	* PolicyReader.py (1.8): 
+	
+	- make sure policy reader uses skin attribute
+
+2002-11-07 12:15  kapil
+
+	* ContentMastering.py (1.18): 
+	
+	- use logging instead of print
+	
+	- make default enabled for skin usage
+
+2002-10-21 13:53  kapil
+
+	* DeploymentStrategy.py (1.15): the name of the default strategy
+	changed. updated to class attr default to reflect new name.
+
+2002-10-18 20:06  kapil
+
+	* URIResolver.py (1.14): 
+	Urgently needed fix to the uri resolver.
+	
+	 - the sorted url list wasn't reversed, so we'd clobber urls we
+	   had yet to replace.
+
+2002-10-18 16:49  kapil
+
+	* ContentDirectoryViews.py (1.5), ContentMastering.py (1.17),
+	DeploymentHistory.py (1.5), Namespace.py (1.7), URIResolver.py
+	(1.13), Strategies/Default.py (1.4), Strategies/Incremental.py
+	(1.4), Strategies/common.py (1.1): 
+	yipee!
+	
+	- incremental deployment works now
+	
+	- directory view merging works now
+	
+	for some definition of works where errors are not detected ;-)
+
+2002-10-18 13:18  kapil
+
+	* Log.py (1.4), URIResolver.py (1.12), Strategies/Default.py (1.3):
+	
+	ready for a tag
+	
+	- added ftp to uri resolver
+	
+	- set default logging to minimal output
+
+2002-10-18 12:30  kapil
+
+	* ContentDeployment.py (1.10), ContentDirectoryViews.py (1.4),
+	ContentIdentification.py (1.10), ContentMastering.py (1.16),
+	ContentOrganization.py (1.9), ContentStorage.py (1.7),
+	ContentURI.py (1.7), DefaultConfiguration.py (1.9),
+	DeploymentExceptions.py (1.3), DeploymentHistory.py (1.4),
+	DeploymentInterfaces.py (1.4), DeploymentPolicy.py (1.12),
+	DeploymentStrategy.py (1.14), DeploymentTool.py (1.5),
+	Descriptor.py (1.8), ExpressionContainer.py (1.3), FileStructure.py
+	(1.7), Log.py (1.3), MimeMapping.py (1.2), Namespace.py (1.6),
+	PolicyReader.py (1.7), Statistics.py (1.6), URIResolver.py (1.11),
+	__init__.py (1.6), utils.py (1.4), Protocols/RsyncSSH.py (1.3),
+	Protocols/__init__.py (1.3), Strategies/Default.py (1.2),
+	Strategies/Identify.py (1.2), Strategies/Incremental.py (1.3),
+	Strategies/__init__.py (1.2), ui/ContentDirectoryViewEditForm.dtml
+	(1.2), ui/ContentURIOverview.dtml (1.1),
+	ui/DeploymentStrategyOverview.dtml (1.1): 
+	massive commit
+	
+	 - cleaned up license files
+	
+	 - work in progress on getting directory view merging to work
+	
+	 - default strategy changes.
+	
+	 - misc. fixes.
+
+2002-10-17 22:13  kapil
+
+	* ContentDeployment.py (1.9), ContentDirectoryViews.py (1.3),
+	ContentIdentification.py (1.9), ContentURI.py (1.6),
+	DefaultConfiguration.py (1.8), DeploymentHistory.py (1.3),
+	DeploymentPolicy.py (1.11), DeploymentStrategy.py (1.13),
+	PolicyReader.py (1.6), README.txt (1.4), URIResolver.py (1.10),
+	Protocols/RsyncSSH.py (1.2), Protocols/__init__.py (1.2),
+	Strategies/Default.py (1.1), Strategies/__init__.py (1.1),
+	docs/notes.txt (1.3), ui/ContentDirectoryViewEditForm.dtml (1.1),
+	ui/DeploymentHistoryOverview.dtml (1.1): 
+	
+	fixes
+	
+	- regex changes, catches css2 imports
+	
+	- fixed uri replacement ordering
+	
+	general cleanups
+	
+	- finished protocol refactoring
+	
+	- management screens/functionality for new components
+	
+	- security declarations on tool component methods
+	
+	- wired in creation and getters for new components
+
+2002-10-16 02:41  kapil
+
+	* URIResolver.py (1.9): - turn down default logging level
+
+2002-10-16 02:39  kapil
+
+	* ContentDirectoryViews.py (1.2), ContentMastering.py (1.15),
+	ContentURI.py (1.5), DefaultConfiguration.py (1.7),
+	DeploymentStrategy.py (1.12), URIResolver.py (1.8): various fixes,
+	to get things working again
+
+2002-10-15 20:21  kapil
+
+	* ChangeLog (1.4): 
+	updated
+
+2002-10-15 20:14  kapil
+
+	* ContentDirectoryViews.py (1.1), ContentURI.py (1.4),
+	DefaultConfiguration.py (1.6), docs/notes.txt (1.2): 
+	- renamed directory views - added installation for new components
+	to config - work in progress on content uri, persistent resolver
+
+2002-10-15 20:10  kapil
+
+	* Strategies/: Identify.py (1.1), Incremental.py (1.2): 
+	- commit temporary work on strategies, they are about to get a
+	major face lift.
+
+2002-10-15 20:09  kapil
+
+	* DeploymentPolicy.py (1.10): 
+	- added accessors for new components
+
+2002-10-15 20:01  kapil
+
+	* URIResolver.py (1.7): 
+	- added nesc. calls to hooks for content path and source path, to
+	allow	for directory views and structure remapping.
+
+2002-10-15 20:01  kapil
+
+	* DeploymentStrategy.py (1.11): 
+	- added directory views to default strategy
+
+2002-10-15 20:00  kapil
+
+	* DeploymentHistory.py (1.2): 
+	- fleshed out dhistory to minimal working solution.
+
+2002-10-15 19:04  kapil
+
+	* Namespace.py (1.5): 
+	- added access control perms to namespace
+
+2002-10-15 18:59  kapil
+
+	* Descriptor.py (1.7): 
+	 - add alias from filename - extension, to migrate to getFilename
+	as appropriate
+	
+	 - added content path, source path attrs
+
+2002-10-15 18:57  kapil
+
+	* ContentStorage.py (1.6): 
+	- added call to get structure get contentpath from descriptor
+	
+	- added a try/finally clause around writing/closing file handles
+
+2002-10-15 15:38  kapil
+
+	* ContentOrganization.py (1.8): 
+	hook allow organization to obtain path from descriptor instead of
+	directly from the content.
+
+2002-10-15 15:03  kapil
+
+	* ContentMastering.py (1.14): 
+	- fixed import typo from mime refactoring
+
+2002-10-15 14:47  kapil
+
+	* ContentMastering.py (1.13): 
+	- mime refactoring
+	
+	- ghost tweaks
+
+2002-10-15 14:46  kapil
+
+	* ContentDeployment.py (1.8), Protocols/RsyncSSH.py (1.1),
+	Protocols/__init__.py (1.1): implementation of deployment protocols
+	separated out into separate package.
+
+2002-10-15 14:44  kapil
+
+	* MimeMapping.py (1.1): separated out mime mapping code into
+	separate module
+
+2002-10-15 14:13  kapil
+
+	* docs/: notes.txt (1.1), perspective-time.txt (1.1),
+	perspective-urls.txt (1.1), todo.txt (1.1): 
+	-moved notes and todo into docs dir.
+	
+	-added additional dev. notes regarding urls and time
+
+2002-10-15 14:12  kapil
+
+	* lib/LockFile.py (1.1): 
+	adding lockfile from mailman to lib, it will be used to to prevent
+	concurrent execution of the same policy.
+
+2002-10-15 02:35  kapil
+
+	* DefaultConfiguration.py (1.5): fix a broken import from merge
+
+2002-10-15 01:15  kapil
+
+	* FileStructure.py (1.6): 
+	move description/header/cvs id to top of file
+
+2002-10-15 01:02  kapil
+
+	* DefaultConfiguration.py (1.4): merged install into
+	defaultconfiguration, as otherwise these files were mostly empty...
+	default configuration is used in several places to get canonical
+	ids for components.
+
+2002-10-12 04:41  kapil
+
+	* README.txt (1.3): added some additional notes re 3rd party libs
+
+2002-10-12 01:50  kapil
+
+	* lib/policycaller.py (1.1): moved to lib subdir
+
+2002-10-12 01:38  kapil
+
+	* ContentMastering.py (1.12), ContentURI.py (1.3),
+	DeploymentStrategy.py (1.10): - additional notes
+	
+	- quieted default logging, only errors are displayed at default log
+	levels,   during deployment policy execution.
+	
+	- added some management options for ContentURI
+
+2002-10-12 01:34  kapil
+
+	* URIResolver.py (1.6): - new regex for url sniffing in rendered
+	content. handles   images (src), and uris better. still need
+	support for css2 imports.
+	
+	- changes to resolve_relative. no longer needs access to   content
+	db. handles the case where the source of a relative   url is a
+	folder vs. content.
+
+2002-10-11 22:19  kapil
+
+	* ChangeLog (1.3): used cvs2cl, to generate changelog
+
+2002-10-11 22:03  kapil
+
+	* ChangeLog (1.2), ContentMastering.py (1.11):	- added basic
+	exception handling to handle
+	   broken content. this needs to be made a little
+	   better, via configuration, and recording
+	   of broken stuff, currently it just emits
+	   log.warning. broken content gets marked as a
+	   ghost.
+
+2002-10-10 17:32  kapil
+
+	* Log.py (1.2): - added note re uri translation
+	
+	- mapped debug log to zlog.blather
+
+2002-10-10 15:43  kapil
+
+	* ChangeLog (1.1), ContentURI.py (1.2), DeploymentPolicy.py (1.9),
+	URIResolver.py (1.5): - added explicit changelog, to keep my
+	sanity.
+
+2002-10-10 15:42  kapil
+
+	* ContentMastering.py (1.10), ContentStorage.py (1.5),
+	DeploymentStrategy.py (1.9), Descriptor.py (1.6), PolicyReader.py
+	(1.5): added ghosts, and incremental gc
+
+2002-10-10 15:22  kapil
+
+	* ContentIdentification.py (1.8): added product filtering to ident
+	script container. only python scripts allowed.
+
+2002-10-10 00:58  kapil
+
+	* DeploymentStrategy.py (1.8), Strategies/Incremental.py (1.1):
+	separted out in progress strategy into new strategy subdir, will
+	dynamically load these.
+	
+	updated some of my current notes.
+	
+	this is prep for an environment rebuild
+
+2002-10-10 00:41  kapil
+
+	* ContentDeployment.py (1.7), ContentIdentification.py (1.7),
+	ContentMastering.py (1.9), ContentOrganization.py (1.7),
+	ContentStorage.py (1.4), ContentURI.py (1.1), DeploymentHistory.py
+	(1.1), DeploymentInterfaces.py (1.3), DeploymentPolicy.py (1.8),
+	DeploymentStrategy.py (1.7), DeploymentTool.py (1.4),
+	FileStructure.py (1.5), PolicyReader.py (1.4), Statistics.py (1.5),
+	URIResolver.py (1.4), ui/ContentExpFilterAddForm.dtml (1.1),
+	ui/ContentExpFilterEditForm.dtml (1.1), ui/ToolAddPolicyForm.dtml
+	(1.3): - added ttw xml policy upload
+	
+	- filters editable ttw
+	
+	- ...
+
+2002-10-08 19:35  kapil
+
+	* ContentIdentification.py (1.6), ContentMastering.py (1.8),
+	ContentOrganization.py (1.6), DeploymentStrategy.py (1.6),
+	Descriptor.py (1.5), ExpressionContainer.py (1.2), PolicyReader.py
+	(1.3), lib/__init__.py (1.1), lib/linuxproc.py (1.1), lib/pypect.py
+	(1.1): - added third party files - added notes - added licenese to
+	some files
+
+2002-10-08 17:34  kapil
+
+	* PolicyReader.py (1.2): added function for initialization of
+	policy on the tool from the parsed xml.
+
+2002-10-08 16:48  kapil
+
+	* PolicyReader.py (1.1): add xml policy reader
+
+2002-10-08 10:49  kapil
+
+	* Statistics.py (1.4): changed finaally to except, in the case
+	where linuxproc is not available, doesn't work
+
+2002-10-07 22:21  kapil
+
+	* ContentIdentification.py (1.5), ContentMastering.py (1.7),
+	DeploymentStrategy.py (1.5), ExpressionContainer.py (1.1),
+	Statistics.py (1.3), __init__.py (1.5): - added some linux specific
+	memory gather tech. (reports nothing on other platforms)
+
+2002-10-06 03:04  kapil
+
+	* ContentIdentification.py (1.4), ContentMastering.py (1.6),
+	ContentOrganization.py (1.5), ContentStorage.py (1.3),
+	DefaultConfiguration.py (1.3), DeploymentExceptions.py (1.2),
+	DeploymentInterfaces.py (1.2), DeploymentPolicy.py (1.7),
+	DeploymentStrategy.py (1.4), DeploymentTool.py (1.3), Descriptor.py
+	(1.4), FileStructure.py (1.4), Namespace.py (1.4), Statistics.py
+	(1.2), URIResolver.py (1.3), __init__.py (1.4), utils.py (1.3),
+	Extensions/Install.py (1.2), ui/MimeExtensionMappingEditForm.dtml
+	(1.2): massive commit, this gets us into good working order, for
+	deployment.
+	
+	additionally its an initial landing point of the mass refactoring i
+	started a few weeks ago at cs.
+	
+	the zmi screens still need work, as does component initiliazation,
+	and reporting of stat collection.
+	
+	incremental deployment functionality, is tops on the todo list.
+	
+	doing multiple renderings per content type is going to require some
+	sort additional refactoring.
+	
+	top priority on zmi is reducing its complexity, and getting it
+	completely functional again, and integrating ordered folder, so
+	that all the filterish things, can be explicitly ordered ttw.
+
+2002-10-03 16:20  kapil
+
+	* DeploymentPolicy.py (1.6), DeploymentStrategy.py (1.3),
+	URIResolver.py (1.2): - imports now
+
+2002-10-03 15:38  kapil
+
+	* ContentDeployment.py (1.6), ContentIdentification.py (1.3),
+	ContentMastering.py (1.5), ContentOrganization.py (1.4),
+	ContentStorage.py (1.2), DeploymentPolicy.py (1.5),
+	DeploymentStrategy.py (1.2), Log.py (1.1), Statistics.py (1.1): 
+	added gpl license header, and logging, renamed stats.
+
+2002-09-24 17:30  kapil
+
+	* ContentDeployment.py (1.5), ContentMastering.py (1.4),
+	ContentOrganization.py (1.3), ContentStorage.py (1.1),
+	DeploymentPolicy.py (1.4), DeploymentStrategy.py (1.1),
+	Descriptor.py (1.3), FileStructure.py (1.3), Namespace.py (1.3),
+	URIResolver.py (1.1), __init__.py (1.3),
+	ui/ContentOrganizationOverview.dtml (1.2),
+	ui/DeploymentTargetAddForm.dtml (1.2),
+	ui/DeploymentTargetSettingsForm.dtml (1.1),
+	ui/IdentificationOverview.dtml (1.2),
+	ui/MimeExtensionMappingAddForm.dtml (1.2),
+	ui/ToolAddPolicyForm.dtml (1.2): committing work in progress
+
+2002-09-23 13:43  kapil
+
+	* ContentDeployment.py (1.4): additional rsync options
+
+2002-09-12 13:18  kapil
+
+	* README.txt (1.2): added some items to todo list
+
+2002-08-23 18:36  kapil
+
+	* ContentDeployment.py (1.3), ContentIdentification.py (1.2),
+	ContentMastering.py (1.3), ContentOrganization.py (1.2),
+	DefaultConfiguration.py (1.2), DeploymentExceptions.py (1.1),
+	DeploymentInterfaces.py (1.1), DeploymentPolicy.py (1.3),
+	DeploymentTool.py (1.2), Descriptor.py (1.2), FileStructure.py
+	(1.2), Namespace.py (1.2), __init__.py (1.2), utils.py (1.2): 
+	cleanups
+	
+	- added standard header docstring
+	
+	- centralized interfaces to DeploymentInterfaces
+	
+	- centralized exceptions to DeploymentExceptions
+
+2002-08-23 10:46  kapil
+
+	* ContentDeployment.py (1.2): fixed misspelling of rendered.
+
+2002-08-23 10:46  kapil
+
+	* DeploymentPolicy.py (1.2): minor change to return value on
+	execution of non active policy
+
+2002-08-22 18:29  kapil
+
+	* ContentMastering.py (1.2): optimize cooking a little, return as
+	soon as match found.
+
+2002-08-19 11:25  kapil
+
+	* ContentDeployment.py (1.1), ContentIdentification.py (1.1),
+	ContentMastering.py (1.1), ContentOrganization.py (1.1),
+	DefaultConfiguration.py (1.1), DeploymentPolicy.py (1.1),
+	DeploymentTool.py (1.1), Descriptor.py (1.1), FileStructure.py
+	(1.1), LICENSE.GPL (1.1), Namespace.py (1.1), README.txt (1.1),
+	__init__.py (1.1), refresh.txt (1.1), tool.png (1.1), utils.py
+	(1.1), Extensions/Install.py (1.1), help/ContentIdentification.stx
+	(1.1), help/Design.stx (1.1), help/thoughts.stx (1.1),
+	ui/CMFMountForm.dtml (1.1), ui/ContentDeploymentOverview.dtml
+	(1.1), ui/ContentMasteringOverview.dtml (1.1),
+	ui/ContentMasteringRoot.dtml (1.1), ui/ContentMasteringSkin.dtml
+	(1.1), ui/ContentOrganizationOrganize.dtml (1.1),
+	ui/ContentOrganizationOverview.dtml (1.1),
+	ui/ContentOrganizationSettings.dtml (1.1),
+	ui/ContentOrganizationStructure.dtml (1.1),
+	ui/ContentSourceView.dtml (1.1), ui/DeploymentTargetAddForm.dtml
+	(1.1), ui/ExpressionFilterAddForm.dtml (1.1),
+	ui/FileSystemMountForm.dtml (1.1), ui/IdentificationOverview.dtml
+	(1.1), ui/MimeExtensionMappingAddForm.dtml (1.1),
+	ui/MimeExtensionMappingEditForm.dtml (1.1), ui/PolicyOverview.dtml
+	(1.1), ui/StructureAddDirectoryForm.dtml (1.1),
+	ui/ToolAddPolicyForm.dtml (1.1), ui/ToolOverview.dtml (1.1),
+	www/identify.png (1.1), www/policy.png (1.1), www/protocol.png
+	(1.1): initial add of cmf deployment
+

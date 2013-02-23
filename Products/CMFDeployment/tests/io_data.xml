@@ -1,0 +1,300 @@
+<?xml version="1.0" ?>
+<policy id="incremental" pipeline_id="incremental" title="incremental" type="dict">
+	<organization cmf_path="" fs_path="*/examples/static/plone_2_1" type="dict">
+		<composites type="list">
+			<entry type="string">
+				PloneArticle
+			</entry>
+		</composites>
+		<restricted type="list">
+			<entry type="string">
+				Members
+			</entry>
+			<entry type="string">
+				content_type_registry
+			</entry>
+			<entry type="string">
+				acl_users
+			</entry>
+			<entry type="string">
+				mimetypes_registry
+			</entry>
+			<entry type="string">
+				archetype_tool
+			</entry>
+			<entry type="string">
+				uid_catalog
+			</entry>
+			<entry type="string">
+				reference_catalog
+			</entry>
+		</restricted>
+	</organization>
+	<content_transforms type="dict"/>
+	<identification type="dict">
+		<sources type="list">
+			<entry factory="addIncrementalCatalogSource" id="catalog" product="CMFDeployment" title="catalog" type="dict"/>
+		</sources>
+		<filters type="list"/>
+	</identification>
+	<transports type="list">
+		<entry factory="addRsyncSSHTransport" id="vx" product="CMFDeployment" type="dict">
+			<host type="string">
+				vx
+			</host>
+			<password type="string"/>
+			<password_confirm type="string"/>
+			<remote_directory type="string">
+				vx
+			</remote_directory>
+		</entry>
+	</transports>
+	<resolver type="dict">
+		<target_path type="string">
+			/
+		</target_path>
+		<external_resolver_path type="string"/>
+		<link_error_url type="string">
+			deploy_link_error
+		</link_error_url>
+		<enable_text_resolution type="bool">
+			True
+		</enable_text_resolution>
+		<vhost_path type="string"/>
+		<relative_target_resolution type="bool">
+			False
+		</relative_target_resolution>
+	</resolver>
+	<mastering type="dict">
+		<rules type="list">
+			<entry factory="addContentRule" id="Site" product="CMFDeployment" type="dict">
+				<filename type="string">
+					string:index.html
+				</filename>
+				<view_method type="string">
+					string:index_html
+				</view_method>
+				<condition type="string">
+					python: object.portal_type == 'Plone Site'
+				</condition>
+				<aliases type="list"/>
+			</entry>
+			<entry factory="addATContainerRule" id="Folder" product="CMFDeployment" type="dict">
+				<filename type="string">
+					string:${object/getId}/index.html
+				</filename>
+				<view_method type="string"/>
+				<condition type="string">
+					python: object.portal_type == 'Folder'
+				</condition>
+				<aliases type="list"/>
+			</entry>
+			<entry factory="addContentRule" id="IndexDocument" product="CMFDeployment" type="dict">
+				<filename type="string">
+					python: 'index.html'
+				</filename>
+				<view_method type="string"/>
+				<condition type="string">
+					python: object.getId()=='index_html'
+				</condition>
+				<aliases type="list"/>
+			</entry>
+			<entry factory="addContentRule" id="Document" product="CMFDeployment" type="dict">
+				<filename type="string">
+					python: '%s.html'%object.getId()
+				</filename>
+				<view_method type="string"/>
+				<condition type="string">
+					python: object.portal_type == 'Document'
+				</condition>
+				<aliases type="list"/>
+			</entry>
+			<entry factory="addContentRule" id="Image" product="CMFDeployment" type="dict">
+				<filename type="string">
+					python: object.getId()
+				</filename>
+				<view_method type="string"/>
+				<condition type="string">
+					python: object.portal_type == 'Image'
+				</condition>
+				<aliases type="list">
+					<entry type="string">
+						image
+					</entry>
+				</aliases>
+			</entry>
+			<entry factory="addContentRule" id="Event" product="CMFDeployment" type="dict">
+				<view_method type="string"/>
+				<filename type="string">
+					python: '%s.html'%object.getId()
+				</filename>
+				<children type="list">
+					<entry type="dict">
+						<extension_expression type="string">
+							string:${object/getId}.ics
+						</extension_expression>
+						<binary type="bool">
+							False
+						</binary>
+						<source_path type="string">
+							/ics_view
+						</source_path>
+						<id type="string">
+							ical_view
+						</id>
+						<view_method type="string">
+							python: deploy.bind(deploy.event_ics_view, object )
+						</view_method>
+					</entry>
+					<entry type="dict">
+						<extension_expression type="string">
+							string:${object/getId}.vcs
+						</extension_expression>
+						<binary type="bool">
+							False
+						</binary>
+						<source_path type="string">
+							/vcs_view
+						</source_path>
+						<id type="string">
+							vcal_view
+						</id>
+						<view_method type="string">
+							python: deploy.bind(deploy.event_vcs_view, object )
+						</view_method>
+					</entry>
+				</children>
+				<condition type="string">
+					python: object.portal_type == 'Event'
+				</condition>
+				<aliases type="list"/>
+			</entry>
+			<entry factory="addContentRule" id="File" product="CMFDeployment" type="dict">
+				<filename type="string">
+					object/getId
+				</filename>
+				<view_method type="string"/>
+				<condition type="string">
+					python: object.portal_type == 'File'
+				</condition>
+				<aliases type="list">
+					<entry type="string">
+						download
+					</entry>
+				</aliases>
+			</entry>
+		</rules>
+		<chain_user type="dict" udb_path="special" user="nobody">
+			<enable type="bool">
+				True
+			</enable>
+		</chain_user>
+		<chain_skin skin_name="Plone Default" type="dict">
+			<enable type="bool">
+				True
+			</enable>
+		</chain_skin>
+	</mastering>
+	<site_resources type="list">
+		<entry factory="addResourceRegistryRule" id="reg_portal_css" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/portal_css
+			</view_path>
+			<source_path type="string">
+				/portal_css
+			</source_path>
+			<deployment_path type="string">
+				/css
+			</deployment_path>
+		</entry>
+		<entry factory="addResourceRegistryRule" id="reg_portal_javascripts" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/portal_javascripts
+			</view_path>
+			<source_path type="string">
+				/portal_javascripts
+			</source_path>
+			<deployment_path type="string">
+				/javascript
+			</deployment_path>
+		</entry>
+		<entry factory="addSkinResourceRule" id="image_extractor" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				.*(?:png|gif|jpg)
+			</view_path>
+			<source_path type="string">
+				/
+			</source_path>
+			<deployment_path type="string">
+				/images
+			</deployment_path>
+		</entry>
+		<entry factory="addDirectoryViewRule" id="plone_images" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/plone_images
+			</view_path>
+			<source_path type="string">
+				/
+			</source_path>
+			<deployment_path type="string">
+				/images
+			</deployment_path>
+		</entry>
+		<entry factory="addResourceTemplateRule" id="sitemap" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/sitemap
+			</view_path>
+			<source_path type="string">
+				/sitemap
+			</source_path>
+			<deployment_path type="string">
+				/sitemap.html
+			</deployment_path>
+		</entry>
+		<entry factory="addResourceTemplateRule" id="search_form" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/search_form
+			</view_path>
+			<source_path type="string">
+				/search_form
+			</source_path>
+			<deployment_path type="string">
+				/search_form
+			</deployment_path>
+		</entry>
+		<entry factory="addResourceTemplateRule" id="search" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/search
+			</view_path>
+			<source_path type="string">
+				/search
+			</source_path>
+			<deployment_path type="string">
+				/search
+			</deployment_path>
+		</entry>
+		<entry factory="addResourceTemplateRule" id="iefixes_css" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/IEFixes.css
+			</view_path>
+			<source_path type="string">
+				/IEFixes.css
+			</source_path>
+			<deployment_path type="string">
+				/css/IEFixes.css
+			</deployment_path>
+		</entry>
+		<entry factory="addResourceTemplateRule" id="favicon" product="CMFDeployment" type="dict">
+			<view_path type="string">
+				/favicon.ico
+			</view_path>
+			<source_path type="string">
+				/favicon.ico
+			</source_path>
+			<deployment_path type="string">
+				/favicon.ico
+			</deployment_path>
+		</entry>
+
+	</site_resources>
+</policy>
