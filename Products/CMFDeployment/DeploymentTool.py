@@ -58,12 +58,16 @@ class DeploymentTool(UniqueObject, Folder):
         )
 
     overview = DTMLFile('ui/ToolOverview', globals())
-    addPolicyForm = DTMLFile('ui/ToolAddPolicyForm', globals())
+    _addPolicyForm = DTMLFile('ui/ToolAddPolicyForm', globals())
 
     all_meta_types = (
         {'name':DeploymentPolicy.meta_type,
          'action':'addPolicyForm'},
         )
+    security.declareProtected(CMFCorePermissions.ManagePortal, 'addPolicyForm')
+    def addPolicyForm(self, *args, **kwargs):
+        """ """
+        return self._addPolicyForm(DeploymentPipelineIds=getPipelineNames())
 
     security.declareProtected(CMFCorePermissions.ManagePortal, 'addPolicy')
     def addPolicy(self, policy_id='', policy_title='', policy_pipeline_id='incremental', policy_xml='', REQUEST=None):
