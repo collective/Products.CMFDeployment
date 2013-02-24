@@ -27,14 +27,10 @@ from Products.Archetypes import public as atapi
 from Products.CMFDeployment.Descriptor import DescriptorFactory
 from Products.CMFDeployment.DeploymentInterfaces import IContentRule
 from Products.CMFDeployment import utils as deploy_utils
-from Products.CMFDeployment.Namespace import CMFCorePermissions
 
-from Products.CMFCore.Expression import Expression
-from Products.CMFCore import utils
-
-from Acquisition import aq_inner, aq_parent
 from AccessControl import ClassSecurityInfo
-from Globals import DTMLFile, InitializeClass
+from AccessControl.class_init import InitializeClass
+from App.special_dtml import DTMLFile
 
 from default import ContentRule
 

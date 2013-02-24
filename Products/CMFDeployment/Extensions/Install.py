@@ -7,11 +7,9 @@ from Products.CMFCore.DirectoryView import addDirectoryViews
 
 
 def uninstall( self ):
-    out = StringIO()
     skinstool = getToolByName(self, 'portal_skins')
 
     # get rid of deployment skin
-    skins = skinstool.getSkinSelections()
     skinstool.manage_skinLayers( chosen=('Plone Deployment',),
                                  del_skin=True )
 

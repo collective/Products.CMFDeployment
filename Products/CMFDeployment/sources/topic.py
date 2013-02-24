@@ -7,10 +7,10 @@ $Id: topic.py 1205 2006-03-04 23:04:46Z hazmat $
 # import check that zmi topics are present 
 from Products.ZMITopic.topic import ZMITopic
 
-from Globals import DTMLFile
-from OFS.Folder import Folder
+from App.special_dtml import DTMLFile
 from Products.CMFDeployment.DeploymentInterfaces import IContentSource
 from base import BaseSource
+
 
 def addTopicSource( self,
                     id,

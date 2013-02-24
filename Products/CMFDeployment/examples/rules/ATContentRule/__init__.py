@@ -34,7 +34,8 @@ from Products.CMFCore import utils
 from Acquisition import aq_inner, aq_parent
 from AccessControl import ClassSecurityInfo
 from OFS.SimpleItem import SimpleItem
-from Globals import DTMLFile, InitializeClass
+from App.special_dtml import DTMLFile
+from AccessControl.class_init import InitializeClass
 
 
 PROJECT_NAME = "ATContentRule"
@@ -102,9 +103,7 @@ class ArchetypeContentRule(SimpleItem):
 
     def getSchemaResources( self, content):
         schema = content.Schema()
-        content_path = content.absolute_url(1)
         factory = None
-        parent = aq_parent(aq_inner(content))
         for field in schema.filterFields():
             if isinstance( field, (atapi.ImageField, atapi.FileField)):
                 value = field.get( content )

@@ -29,7 +29,7 @@ $Id: __init__.py 1990 2007-07-12 15:09:19Z hazmat $
 
 
 import utils
-from Globals import package_home
+from App.Common import package_home
 from Products.CMFCore.utils import ToolInit
 from Products.CMFCore.DirectoryView import registerDirectory
 

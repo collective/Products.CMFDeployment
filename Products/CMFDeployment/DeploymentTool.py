@@ -30,9 +30,12 @@ $Id: DeploymentTool.py 1657 2006-09-13 22:00:32Z hazmat $
 
 
 from Namespace import *
+from Products.CMFDeployment.pipeline import getPipelineNames
 from DeploymentPolicy import DeploymentPolicy
-from reader import read_policy, make_policy
 import io
+
+DeploymentPipelineIds = getPipelineNames()
+
 
 class DeploymentTool(UniqueObject, Folder):
 

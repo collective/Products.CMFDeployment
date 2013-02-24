@@ -35,7 +35,7 @@ from OFS.Folder import Folder
 #from Interface import Base as Interface
 from zope.interface import Interface
 
-from Globals import DTMLFile
+from App.special_dtml import DTMLFile
 
 class DirectoryCreationException(Exception): pass
 
