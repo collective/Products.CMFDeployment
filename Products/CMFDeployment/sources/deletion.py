@@ -5,6 +5,7 @@ $Id: deletion.py 1231 2006-03-14 05:53:43Z hazmat $
 
 from Products.CMFDeployment.Namespace import *
 from Products.CMFDeployment.DeploymentInterfaces import IContentSource
+from zope.interface import implements
 
 def addDeletionSource( self, id, title="", RESPONSE=None):
     """ add a deletion source
@@ -22,7 +23,7 @@ class DeletionSource( SimpleItem ):
     stores records for content deleted through the portal lifecycle.
     """
 
-    __implements__ = IContentSource
+    implements(IContentSource)
 
     meta_type = "Deletion Source"
     

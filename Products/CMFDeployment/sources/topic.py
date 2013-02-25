@@ -10,6 +10,7 @@ from Products.ZMITopic.topic import ZMITopic
 from App.special_dtml import DTMLFile
 from Products.CMFDeployment.DeploymentInterfaces import IContentSource
 from base import BaseSource
+from zope.interface import implements
 
 
 def addTopicSource( self,
@@ -37,7 +38,7 @@ class TopicSource( ZMITopic, BaseSource ):
     icon_path = "topic_icon.gif"
     icon = BaseSource.icon
     
-    __implements__ = IContentSource
+    implements(IContentSource)
 
     def __init__(self, id, title=''):
         self.id = id

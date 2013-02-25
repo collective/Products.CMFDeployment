@@ -31,7 +31,7 @@ from Namespace import *
 from Products.CMFCore.Expression import Expression
 from Products.PageTemplates.Expressions import SecureModuleImporter, getEngine
 
-from Products.CMFDeployment.utils import SerializablePlugin
+from Products.CMFDeployment.utils import SerializablePlugin, filter_meta_types
 from Log import LogFactory
 from zope.interface import implements
 
@@ -148,8 +148,9 @@ class ContentSourceContainer( OrderedFolder ):
         
     def all_meta_types(self):
         """Delegate the call to IFAwareObjectManager"""
-        return OrderedFolder.all_meta_types(self,
-                                            interfaces=self._product_interfaces)
+        return filter_meta_types(
+            OrderedFolder.all_meta_types(self,
+                interfaces=self._product_interfaces))
 
     def getContent( self ):
         for source in self.objectValues():

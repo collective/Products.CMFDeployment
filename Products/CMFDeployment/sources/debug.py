@@ -6,6 +6,7 @@ from Products.CMFDeployment.Namespace import *
 from Products.CMFDeployment.DeploymentInterfaces import IContentSource
 
 from base import BaseSource
+from zope.interface import implements
 
 def addDebugSource( self,
                     id,
@@ -26,7 +27,7 @@ class DebugSource(BaseSource):
 
     meta_type = 'Catalog Content Source'
 
-    __implements__ = IContentSource
+    implements(IContentSource)
 
     manage_options = (
         {'label':'Source',
@@ -67,7 +68,7 @@ class IncrementalCatalogSource(BaseSource):
 
     meta_type = 'Incremental Catalog Content Source'
 
-    __implements__ = IContentSource
+    implements(IContentSource)
 
     manage_options = (
         {'label':'Source',

@@ -4,6 +4,7 @@ $Id: dependency.py 1105 2006-01-01 09:51:55Z hazmat $
 
 from Products.CMFDeployment.Namespace import *
 from Products.CMFDeployment.DeploymentInterfaces import IContentSource
+from zope.interface import implements
 
 def addDependencySource( self,
                          id='dependency_source',
@@ -27,7 +28,7 @@ class DependencySource( SimpleItem ):
     
     meta_type = "Dependency Source"
     
-    __implements__ = IContentSource
+    implements(IContentSource)
 
     def _v_queue( self ):
         self._v_queue = v = []
