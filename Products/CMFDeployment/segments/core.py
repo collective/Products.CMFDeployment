@@ -3,6 +3,7 @@ $Id: core.py 1155 2006-02-06 19:52:39Z hazmat $
 """
 
 from interfaces import *
+from zope.interface import implements
 
 #################################
 
@@ -98,19 +99,19 @@ class BaseSegment( object ):
 
 class PipeSegment( BaseSegment ):
 
-    __implements__ =  IPipeSegment 
+    implements(IPipeSegment)
 
 class Producer( PipeSegment ):
 
-    __implements__ = IProducer 
+    implements(IProducer)
 
 class Consumer( PipeSegment ):
 
-    __implements__ = IConsumer
+    implements(IConsumer)
 
 class Filter( PipeSegment ):
     
-    __implements__ = IFilter
+    implements(IFilter)
 
 
 class VariableAggregator( Consumer ):

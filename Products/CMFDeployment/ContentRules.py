@@ -29,6 +29,7 @@ $Id: ContentRules.py 1245 2006-03-17 05:32:22Z hazmat $
 
 from Namespace import *
 from DeploymentInterfaces import IContentRule
+from Products.CMFDeployment.utils import filter_meta_types
 
 class ContentRuleContainer(OrderedFolder):
 
@@ -61,7 +62,8 @@ class ContentRuleContainer(OrderedFolder):
 
     def all_meta_types(self):
         """Delegate the call passing our allowed interfaces"""
-        return OrderedFolder.all_meta_types(self, interfaces=self._product_interfaces)
+        return filter_meta_types(
+            OrderedFolder.all_meta_types(self, interfaces=self._product_interfaces))
 
     security.declareProtected('CMFDeploy: Add Content Rule', 'addMimeMapping')        
     def addMimeMapping(self, *args, **kw):
