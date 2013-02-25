@@ -1,8 +1,11 @@
 Changelog
 =========
 
-2013-02-23
+unreleased
 ----------
+
+- fix add menus
+  [vangheem]
 
 - lots of missing changelog but not going to deal with
   adding since I'm not familiar. Update to work with plone
