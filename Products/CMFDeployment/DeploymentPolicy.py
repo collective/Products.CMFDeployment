@@ -253,7 +253,7 @@ class DeploymentPolicy(Folder):
         try:
            mailhost.send(mMsg, mTo, mFrom, subject=mSubj)
         except:
-           raise AttributeError, "Can't send email"
+           pass # do not fail if email is not sent
 
 
     def manage_afterAdd(self, item, container):
