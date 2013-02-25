@@ -37,6 +37,7 @@ from Namespace import *
 
 from DeploymentExceptions import InvalidDirectoryView
 from DeploymentInterfaces import ISiteResource
+from Products.CMFDeployment.utils import filter_meta_types
         
 class SiteResources(OrderedFolder):
     """
@@ -66,13 +67,8 @@ class SiteResources(OrderedFolder):
 
     def all_meta_types(self):
         """Delegate the call passing our allowed interfaces"""
-        meta_types = OrderedFolder.all_meta_types(self, interfaces=self._product_interfaces)
-        filtered = []
-        for t in meta_types:
-            if t['action'].startswith('manage_addProduct/Products.CMFDeployment'):
-                filtered.append(t)
-        # filter dups
-        return filtered
+        return filter_meta_types(
+            OrderedFolder.all_meta_types(self, interfaces=self._product_interfaces))
 
     security.declarePrivate('getContent')
     def getContent(self, since_time=None):

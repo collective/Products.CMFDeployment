@@ -282,3 +282,13 @@ def unwrap_object( obj ):
         return obj._obj
         
     return obj
+
+
+def filter_meta_types(meta_types):
+    """ a little silly but we're getting duplicates"""
+    filtered = []
+    for t in meta_types:
+        if t['action'].startswith('manage_addProduct/Products.CMFDeployment'):
+            filtered.append(t)
+    # filter dups
+    return filtered
