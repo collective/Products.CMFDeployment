@@ -37,12 +37,14 @@ import io
 from Namespace import *
 from DeploymentInterfaces import IDeploymentPolicy
 from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
+
 
 class DeploymentPolicy(Folder):
 
     meta_type = 'Deployment Policy'
 
-    __implements__ = IDeploymentPolicy
+    implements(IDeploymentPolicy)
 
     security = ClassSecurityInfo()
     security.declareObjectProtected(CMFCorePermissions.ManagePortal)

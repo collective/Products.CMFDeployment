@@ -66,7 +66,13 @@ class SiteResources(OrderedFolder):
 
     def all_meta_types(self):
         """Delegate the call passing our allowed interfaces"""
-        return OrderedFolder.all_meta_types(self, interfaces=self._product_interfaces)        
+        meta_types = OrderedFolder.all_meta_types(self, interfaces=self._product_interfaces)
+        filtered = []
+        for t in meta_types:
+            if t['action'].startswith('manage_addProduct/Products.CMFDeployment'):
+                filtered.append(t)
+        # filter dups
+        return filtered
 
     security.declarePrivate('getContent')
     def getContent(self, since_time=None):

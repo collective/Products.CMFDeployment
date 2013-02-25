@@ -33,6 +33,7 @@ from Products.PageTemplates.Expressions import SecureModuleImporter, getEngine
 
 from Products.CMFDeployment.utils import SerializablePlugin
 from Log import LogFactory
+from zope.interface import implements
 
 from DeploymentInterfaces import *
 
@@ -45,7 +46,7 @@ class ContentIdentification(Folder):
 
     security = ClassSecurityInfo()
 
-    __implements__ = (IContentSource,)
+    implements(IContentSource)
 
     manage_options = (
         
@@ -182,7 +183,7 @@ InitializeClass( ContentSourceContainer )
 class ContentFilter(SerializablePlugin):
 
     meta_type = 'Content Filters'
-    __implements__ = IContentFilter
+    implements(IContentFilter)
     
     filter_manage_options = (
         {'label':'Edit Filter',

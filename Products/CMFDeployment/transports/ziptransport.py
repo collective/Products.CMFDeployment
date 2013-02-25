@@ -7,6 +7,7 @@ from os import path, walk
 from cStringIO import StringIO
 from tarfile import open as opentar
 from datetime import datetime
+from zope.interface import implements
 
 class ZipProtocol(object):
     """The ZipProtocol object actually does the work of compressing all the cooked pages to a compressed file.  
@@ -49,7 +50,7 @@ class ZipTransport( SerializablePlugin ):
     xml config export.
     """
 
-    __implements__ = IDeploymentTarget
+    implements(IDeploymentTarget)
 
     meta_type = 'Zip Target'
 

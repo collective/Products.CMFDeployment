@@ -66,7 +66,7 @@ class ArchetypeContentRule(SimpleItem):
 
     meta_type = "Archetype Content Rule"
     
-    __implements__ = IContentRule
+    implements(IContentRule)
 
     security = ClassSecurityInfo()
 

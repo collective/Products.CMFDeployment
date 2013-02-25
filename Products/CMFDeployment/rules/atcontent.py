@@ -31,6 +31,7 @@ from Products.CMFDeployment import utils as deploy_utils
 from AccessControl import ClassSecurityInfo
 from AccessControl.class_init import InitializeClass
 from App.special_dtml import DTMLFile
+from zope.interface import implements
 
 from default import ContentRule
 
@@ -63,7 +64,7 @@ class ArchetypeContentRule( ContentRule ):
     meta_type = "Archetype Content Rule"
     xml_factory = "addATContentRule"
     
-    __implements__ = IContentRule
+    implements(IContentRule)
 
     security = ClassSecurityInfo()
 

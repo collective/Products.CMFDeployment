@@ -29,6 +29,7 @@ $Id: base.py 1245 2006-03-17 05:32:22Z hazmat $
 from Products.CMFDeployment.Namespace import *
 from Products.CMFDeployment.DeploymentInterfaces import ISiteResource
 from Products.CMFDeployment.utils import SerializablePlugin
+from zope.interface import implements
 
 source_template = """\
  <resource id="%(id)s"
@@ -42,7 +43,7 @@ source_template = """\
 
 class SiteBaseResource( SerializablePlugin ):
 
-    __implements__ = ISiteResource
+    implements(ISiteResource)
 
     meta_type = "Site Resource"
     xml_template = source_template

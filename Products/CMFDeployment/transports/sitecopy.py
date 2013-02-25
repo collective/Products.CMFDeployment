@@ -32,6 +32,7 @@ from Products.CMFDeployment.Namespace import *
 from Products.CMFDeployment.utils import SerializablePlugin
 from os import path
 from cStringIO import StringIO
+from zope.interface import implements
 
 """ sitecopy config options
 
@@ -110,7 +111,7 @@ def addSiteCopyTransport( self,
 
 class SiteCopyTransport( SerializablePlugin ):
 
-    __implements__ = IDeploymentTarget
+    implements(IDeploymentTarget)
 
     meta_type = 'SiteCopy Target'
     

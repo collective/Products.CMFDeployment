@@ -15,6 +15,7 @@ from Products.CMFDeployment.Descriptor import DescriptorFactory
 from Products.CMFDeployment.DeploymentInterfaces import IContentRule
 from Products.CMFDeployment.utils import SerializablePlugin
 from Products.CMFDeployment.URIResolver import normalize
+from zope.interface import implements
 
 addContentRuleForm = DTMLFile('../ui/MimeExtensionMappingAddForm', globals())
 
@@ -144,7 +145,7 @@ class ContentRule( OrderedFolder, BaseRule ):
     
     view_method = ''
 
-    __implements__ = (IContentRule,)
+    implements(IContentRule)
 
     manage_options = (
         {'label':'Mapping',

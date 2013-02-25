@@ -35,6 +35,7 @@ from cStringIO import StringIO
 from Products.CMFDeployment.Namespace import *
 from Products.CMFDeployment.DeploymentInterfaces import *
 from Products.CMFDeployment.utils import SerializablePlugin
+from zope.interface import implements
 
 class RsyncSSHProtocol(object):
 
@@ -140,7 +141,7 @@ def addRsyncSSHTransport(self,
 
 class RsyncSSHTransport(SerializablePlugin):
 
-    __implements__ = IDeploymentTarget
+    implements(IDeploymentTarget)
 
     meta_type = 'Rsync/SSH Target'
     

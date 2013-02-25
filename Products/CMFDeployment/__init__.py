@@ -70,7 +70,7 @@ def initialize(context):
 
     ToolInit('CMF Deployment',
              tools=tools,
-             product_name='CMFDeployment',
+             product_name='Products.CMFDeployment',
              icon='tool.png').initialize(context)
 
     utils.registerIcon('policy.png')
