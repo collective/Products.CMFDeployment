@@ -214,7 +214,10 @@ class DeploymentPolicy(Folder):
         histories.attachHistory(history)
 
         self.getDeploymentPolicy().setResetDate(False)
-        self.exportNotify(REQUEST)
+        #Uncomment if/when you want to have users with Manager role receive email
+        #when a deployment completes. Helpful, for large sites with long-running
+        #deployments.
+        #self.exportNotify(REQUEST)
         
         if RESPONSE:
             return RESPONSE.redirect('manage_workspace')
