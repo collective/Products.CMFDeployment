@@ -11,7 +11,11 @@ how it should be displayed when deployed, and how it should be deployed </p>
 
 <form action="execute" method="POST">
 <fieldset>
-   <legend class="form-title"> Execute Deployment    <dtml-if last_time><a href="preview">(Preview - Dry Run)</a></dtml-if></legend>
+   <legend class="form-title"> Execute Deployment   
+    <!-- XXX hide since it doesn't work
+
+      <dtml-if last_time><a href="preview">(Preview - Dry Run)</a></dtml-if>-->
+  </legend>
  <div class="form-label" style="padding: 4px"> <label> Reset Deployment Date</label> <input type="checkbox" name="reset_date:int" value="1"/> </div>
 
 <!--

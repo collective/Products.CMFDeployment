@@ -83,6 +83,7 @@ class DeploymentPolicy(Folder):
     overview = DTMLFile('ui/PolicyOverview', globals())
     debug_policy = DTMLFile('ui/PolicyDebug', globals())
     identification = DTMLFile('ui/ContentIdentification', globals())
+    preview = DTMLFile('ui/PolicyPreview', globals())
     _active = 1
     _reset_date = False
     policy_xml = DTMLFile('ui/PolicyExport', globals())
@@ -174,7 +175,6 @@ class DeploymentPolicy(Folder):
 
     security.declareProtected('Manage Portal', 'previewDeployment')
     def previewDeployment( self ):
-
         preview_factory = pipeline.PreviewPipelineFactory()
         preview = preview_factory()
         preview.process( self )
