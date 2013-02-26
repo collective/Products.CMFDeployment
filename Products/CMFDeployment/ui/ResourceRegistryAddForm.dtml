@@ -3,7 +3,7 @@
 <h2> Add Resource Registry  </h2>
 
 
-<form action="addRegistryRule" method="POST">
+<form action="addResourceRegistryRule" method="POST">
 <table>
 
 <tr><td>Id</td>
